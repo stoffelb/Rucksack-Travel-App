@@ -29,8 +29,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# when you add applications, please add it here too - hojin
 INSTALLED_APPS = [
+    'rucksack.apps.RucksackConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
