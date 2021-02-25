@@ -25,3 +25,25 @@
 #container a {
   text-decoration: none;
 }
+
+h2 {
+  font-family: fantasy;
+  font-size: 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.background-image{
+  --background: url(/assets/imgs/bg-img2.jpg) no-repeat center center / cover;;
+}
+
+.card-center{
+  width:90%; // adjust width on your ion-card suitable on your screen
+  display:block;
+  margin: 0 auto;
+}
+
+.bg-transparent {
+  background: transparent;
+  box-shadow:none !important
+}
