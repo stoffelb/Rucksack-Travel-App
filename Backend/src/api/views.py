@@ -39,7 +39,7 @@ import json
 
 
 @api_view(['POST', ])
-def api_create_user(request):
+def api_create_user(request, username):
     try:
         User.objects.get(username=request.data['username'])
     except User.DoesNotExist:
@@ -53,17 +53,14 @@ def api_create_user(request):
 
 
 @api_view(['GET', ])
-def api_display_user(request, api_key):
+def api_display_user(request, username):
     try:
-        acc = Account.objects.get(api_key=api_key)
+        User.objects.get(username = username)
     except Account.DoesNotExist:
-        return Response({"message": "API key doesn't exist!"})
+        return Response({"message": "user doesn't exist!"})
 
-    if acc.is_admin == False:
-        return redirect('home')
-
-    _buoys = Buoy.objects.all()
-    serializer = BuoySerializer(_buoys, many=True)
+    _user = User.objects.all()
+    serializer = UserSerializer(_user, many=True)
 
     return Response(serializer.data)
 
