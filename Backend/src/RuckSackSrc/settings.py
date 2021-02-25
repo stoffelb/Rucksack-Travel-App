@@ -32,12 +32,14 @@ ALLOWED_HOSTS = []
 # when you add applications, please add it here too - hojin
 INSTALLED_APPS = [
     'rucksack.apps.RucksackConfig',
+    'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
