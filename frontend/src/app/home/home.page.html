@@ -17,6 +17,7 @@
 
               </ion-card-header>
               <ion-card-content>
+
                 <ion-item>
                   <ion-label position="floating">Username</ion-label>
                   <ion-input type="text" [(ngModel)]="user_name" placeholder="your@email.com"></ion-input>
@@ -26,14 +27,15 @@
                   <ion-label position="floating">Password</ion-label>
                   <ion-input type="password" [(ngModel)]="user_password" placeholder="**********"></ion-input>
                 </ion-item>
+
               </ion-card-content>
 
               <div class="ion-text-center">
-                <ion-button (click)="go_forgotPassword()" fill="solid" shape="round" lines="none">Forgot Password?</ion-button>
+                <ion-button routerLink="/user-forgot-password" fill="solid" shape="round" lines="none">Forgot Password?</ion-button>
               </div>
 
               <div class="ion-text-center">
-                <ion-button (click)="go_register()" fill="solid" shape="round">Register</ion-button>
+                <ion-button  routerLink="/user-register"fill="solid" shape="round">Register</ion-button>
               </div>
 
               <div class="ion-text-center">
@@ -42,16 +44,10 @@
                   Log In
                 </ion-button>
               </div>
-
             </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-content>
-
-    <footer>
-      <script> src = "home.js"</script>
-    </footer>
-
   </ion-app>
 </body>
