@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router'
+import { HttpClientModule } from '@angular/common/http';
+import { Injectable } from '@angular/core'
 
 @Component({
   selector: 'app-home',
@@ -8,10 +10,11 @@ import { Router } from '@angular/router'
 })
 export class HomePage {
 
-  constructor(private router: Router){}
-
   user_name;
   user_password;
+
+  //constructor(private http: HttpClient){ }
+  constructor(private router: Router){ }
 
   //Function what will call Django database and verify that a user exsists
   loginClick(){
