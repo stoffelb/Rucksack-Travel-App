@@ -55,8 +55,8 @@ def api_create_user(request, username):
 @api_view(['GET', ])
 def api_display_user(request, username):
     try:
-        User.objects.get(username = username)
-    except Account.DoesNotExist:
+        User.objects.get(username=username)
+    except User.DoesNotExist:
         return Response({"message": "user doesn't exist!"})
 
     _user = User.objects.all()
