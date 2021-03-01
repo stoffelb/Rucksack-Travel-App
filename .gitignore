@@ -186,7 +186,7 @@ dmypy.json
 *.sw[mnpcod]
 *.tmp
 *.tmp.*
-log.txt
+# log.txt
 
 # NPM (Node Package Manager) files
 npm-debug.log*
