@@ -3,8 +3,18 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    bio = models.TextField()
-    profile_picture = models.ImageField()
+    user = models.OneToOneField(
+        User, 
+        on_delete=models.CASCADE, 
+        primary_key=True,
+        # default= ''
+    )
+    # role = models.IntegerField(choices=ROLE_CHOICES, default=1)
+    name = models.CharField(max_length=50, blank=True)
+    email = models.EmailField(max_length=254, default = '')
+
+    def str(self):  # unicode for Python 2
+        return self.user.username
 
 
 # class User(models.Model):

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .serializers import UserSerializer
-from .models import User
+from .serializers import UserSerializer, ProfileSerializer
+from .models import User, Profile
 from django.http import JsonResponse, Http404
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
@@ -41,15 +41,33 @@ import json
 @api_view(['POST', ])
 def api_create_user(request, username):
     try:
-        User.objects.get(username=request.data['username'])
+        user = User.objects.get(username=request.data['user']['username'])
     except User.DoesNotExist:
-        serializer = UserSerializer(data=request.data)
+        uSerializer = UserSerializer(data = request.data['user'])
+        
+        if uSerializer.is_valid():
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "User Created!"})
+            # print(uSerializer.data)
+            uSerializer.save()
+
+            newUser = User.objects.get(username=request.data['user']['username'])
+
+            # print(newUser)
+
+            pSerializer = ProfileSerializer(data = {'user': newUser.id, 'name': request.data['name'],'email':request.data['email']})
+
+            if pSerializer.is_valid():
+                # uSerializer.save()
+                pSerializer.save()
+                # print(pSerializer.data)
+                
+                return Response({"message": "Profile Created!"})
+            else:
+                print(pSerializer.errors)
+                return Response({"not successful"})
 
     return Response({"message": "User Already Exists"})
+    # return Response(request.data['user']['username'])
 
 
 @api_view(['GET', ])
