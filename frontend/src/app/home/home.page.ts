@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from './user';
+// import { Console } from 'node:console';
 
 @Component({
   selector: 'app-home',
@@ -33,16 +34,18 @@ export class HomePage {
       params: params,
     };
 
-    this.http.get('localhost:8000/api/get_user', options).subscribe(
-      (Response) => {
-        //code to execute after successful request
-        alert('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ');
-      },
-      (error) => {
-        alert('Sorry, this Username could not be found.');
+    alert(this.http.get('http://localhost:8000/api/get_user/' + this.user_name));
+    // this.http.get('http://localhost:8000/api/get_user/' + this.user_name).subscribe(
+    //   (Response) => {
 
-        //code to execute after failed request
-      }
-    );
+    //     //code to execute after successful request
+    //     alert('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ');
+    //   },
+    //   (error) => {
+    //     alert('Sorry, this Username could not be found.');
+
+    //     //code to execute after failed request
+    //   }
+    // );
   }
 }
