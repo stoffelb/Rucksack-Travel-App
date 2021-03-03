@@ -1,35 +1,48 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'
-import { HttpClientModule } from '@angular/common/http';
-import { Injectable } from '@angular/core'
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { User } from './user';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-
 })
 export class HomePage {
-
   user_name;
   user_password;
 
-  //constructor(private http: HttpClient){ }
-  constructor(private router: Router){ }
-
-  //Function what will call Django database and verify that a user exsists
-  loginClick(){
-    alert(`Your Username is: ${this.user_name}`)
-  }
-
+  constructor(private http: HttpClient) {}
   //function to go to register page
-  go_register(){
-    this.router.navigate(['user-register'])
-  }
 
-  //function to go to forgot password page
-  go_forgotPassword(){
-    this.router.navigate(['user-forgot-password'])
-  }
+  loginClick() {
+    const data: User = {
+      username: this.user_name,
+      password: this.user_password,
+    };
 
+    const headers: HttpHeaders = new HttpHeaders({
+      username: data.username,
+      'content-type': 'application/json',
+    });
+
+    let params = new HttpParams();
+
+    const options = {
+      headers: headers,
+      params: params,
+    };
+
+    this.http.get('localhost:8000/api/get_user', options).subscribe(
+      (Response) => {
+        //code to execute after successful request
+        alert('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ');
+      },
+      (error) => {
+        alert('Sorry, this Username could not be found.');
+
+        //code to execute after failed request
+      }
+    );
+  }
 }
