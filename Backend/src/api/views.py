@@ -55,11 +55,16 @@ def api_get_user(request, username):
 
 @api_view(['GET', ])
 def ProfileView(request, username):
-    
-    #query profile, itinerarys, 
-    context['Profile'] = Profile.objects.get(username = username)
-    context['Itineraries'] = Itinerary.objects.get(user = User.objects.get(username = username))
-    return context
+    _user = User.objects.get(username = username)
+    _profile = Profile.objects.get(user = _user)
+    #query profile, itinerarys, followers, etc. that are unique to the user/profile given
+    context = {}
+    context['Profile'] = ProfileSerializer(_profile).data
+    try:
+        context['Itineraries'] = Itinerary.objects.get(user = _user)
+    except:
+        context['Itineraries'] = 'none'
+    return Response(context)
     
 
 # User Profile Update
