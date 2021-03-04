@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .serializers import UserSerializer, ProfileSerializer
-from .models import User, Profile
+from .models import User, Profile, Itinerary
 from django.http import JsonResponse, Http404
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
@@ -8,7 +8,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
 import json
-
 
 @api_view(['POST', ])
 def api_create_user(request, username):
@@ -54,17 +53,14 @@ def api_get_user(request, username):
     # return 'user exists' if user exists
     return Response('user exists')
 
-
 @api_view(['GET', ])
-def api_display_specific_buoy_data(request, buoy_id):
-    if request.user.is_admin == False:
-        return redirect('home')
-
-    _data = Data.objects.filter(device_id=buoy_id)
-
-    serializer = DataSerializer(_data, many=True)
-
-    return Response(serializer.data)
+def ProfileView(request, username):
+    
+    #query profile, itinerarys, 
+    context['Profile'] = Profile.objects.get(username = username)
+    context['Itineraries'] = Itinerary.objects.get(user = User.objects.get(username = username))
+    return context
+    
 
 # User Profile Update
 # @api_view(['POST', ])
