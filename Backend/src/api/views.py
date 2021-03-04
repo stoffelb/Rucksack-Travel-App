@@ -9,34 +9,6 @@ from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
 import json
 
-#from .forms import UserForm
-
-# User Profile Update
-# @api_view(['POST', ])
-# def api_update_buoy_data(request, api_key, buoy_id):
-#     try:  # find account with specified api_key
-#         acc = Account.objects.get(api_key=api_key)
-#     except Account.DoesNotExist:
-#         return Response({"message": "API key doesn't exist!"})
-#
-#     try:  # make sure the buoy we are updating actually exists
-#         _buoy = Buoy.objects.get(id=buoy_id)
-#     except Buoy.DoesNotExist:
-#         # if it doesn't, send HTTP 404 response
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-#
-#     # check if the given API key is the same as the API key connected to the buoy's user
-#     if acc.api_key != _buoy.user.api_key:
-#         return Response({"message": "Invalid API key!"})
-#
-#     serializer = DataSerializer(data=request.data)
-#
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response({"message": "Buoy Updated!", "buoy_data": serializer.data})
-#
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['POST', ])
 def api_create_user(request, username):
@@ -63,7 +35,7 @@ def api_create_user(request, username):
             else:
                 # if unsuccessful, print errors
                 print(pSerializer.errors)
-                return Response({"not successful"})
+                return Response({'message':'not successful'})
 
     return Response({"message": "User Already Exists"})
 
@@ -80,7 +52,7 @@ def api_get_user(request, username):
     # serialize JSON object if a user with the specified username exists
     serializer = UserSerializer(_user)
     # return 'user exists' if user exists
-    return Response({'message': 'user exists'})
+    return Response('user exists')
 
 
 @api_view(['GET', ])
@@ -93,3 +65,29 @@ def api_display_specific_buoy_data(request, buoy_id):
     serializer = DataSerializer(_data, many=True)
 
     return Response(serializer.data)
+
+# User Profile Update
+# @api_view(['POST', ])
+# def api_update_buoy_data(request, api_key, buoy_id):
+#     try:  # find account with specified api_key
+#         acc = Account.objects.get(api_key=api_key)
+#     except Account.DoesNotExist:
+#         return Response({"message": "API key doesn't exist!"})
+#
+#     try:  # make sure the buoy we are updating actually exists
+#         _buoy = Buoy.objects.get(id=buoy_id)
+#     except Buoy.DoesNotExist:
+#         # if it doesn't, send HTTP 404 response
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+#
+#     # check if the given API key is the same as the API key connected to the buoy's user
+#     if acc.api_key != _buoy.user.api_key:
+#         return Response({"message": "Invalid API key!"})
+#
+#     serializer = DataSerializer(data=request.data)
+#
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response({"message": "Buoy Updated!", "buoy_data": serializer.data})
+#
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
