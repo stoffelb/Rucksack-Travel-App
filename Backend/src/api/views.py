@@ -40,47 +40,47 @@ import json
 
 @api_view(['POST', ])
 def api_create_user(request, username):
+
+    # see if user already exists
     try:
         user = User.objects.get(username=request.data['user']['username'])
     except User.DoesNotExist:
+        # serialize User json data
         uSerializer = UserSerializer(data = request.data['user'])
         
         if uSerializer.is_valid():
-
-            # print(uSerializer.data)
+            # if serialized data is valid, then save as a User model
             uSerializer.save()
-
             newUser = User.objects.get(username=request.data['user']['username'])
-
-            # print(newUser)
-
+            # Serialize Profile json data using newUser.id + name + email + other fields to be decided
             pSerializer = ProfileSerializer(data = {'user': newUser.id, 'name': request.data['name'],'email':request.data['email']})
 
             if pSerializer.is_valid():
-                # uSerializer.save()
+                # if serialized data is valid, then save as a Profile model
                 pSerializer.save()
-                # print(pSerializer.data)
-                
+                # return response that profile has been successfully created
                 return Response({"message": "Profile Created!"})
             else:
+                # if unsuccessful, print errors
                 print(pSerializer.errors)
                 return Response({"not successful"})
 
     return Response({"message": "User Already Exists"})
-    # return Response(request.data['user']['username'])
 
 
 @api_view(['GET', ])
 def api_display_user(request, username):
     try:
-        User.objects.get(username=username)
+        # query user based on username
+        _user = User.objects.get(username=username)
     except User.DoesNotExist:
+        # if user doesn't exist, return following response
         return Response({"message": "user doesn't exist!"})
 
-    _user = User.objects.all()
-    serializer = UserSerializer(_user, many=True)
-
-    return Response(serializer.data)
+    # serialize JSON object if a user with the specified username exists
+    serializer = UserSerializer(_user)
+    # return 'user exists' if user exists
+    return Response('user exists')
 
 
 @api_view(['GET', ])
