@@ -47,7 +47,7 @@ def api_create_user(request, username):
     except User.DoesNotExist:
         # serialize User json data
         uSerializer = UserSerializer(data = request.data['user'])
-        
+
         if uSerializer.is_valid():
             # if serialized data is valid, then save as a User model
             uSerializer.save()
@@ -69,7 +69,7 @@ def api_create_user(request, username):
 
 
 @api_view(['GET', ])
-def api_display_user(request, username):
+def api_get_user(request, username):
     try:
         # query user based on username
         _user = User.objects.get(username=username)
@@ -80,7 +80,7 @@ def api_display_user(request, username):
     # serialize JSON object if a user with the specified username exists
     serializer = UserSerializer(_user)
     # return 'user exists' if user exists
-    return Response('user exists')
+    return Response({'message': 'user exists'})
 
 
 @api_view(['GET', ])
