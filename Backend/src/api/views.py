@@ -7,6 +7,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 import json
 
 @api_view(['POST', ])
@@ -53,6 +54,7 @@ def api_get_user(request, username):
     # return 'user exists' if user exists
     return Response('user exists')
 
+
 @api_view(['GET', ])
 def ProfileView(request, username):
     _user = User.objects.get(username = username)
@@ -66,6 +68,7 @@ def ProfileView(request, username):
         context['Itineraries'] = 'none'
     return Response(context)
     
+
 
 # User Profile Update
 # @api_view(['POST', ])
