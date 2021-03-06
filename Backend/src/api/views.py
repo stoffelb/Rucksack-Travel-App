@@ -2,13 +2,13 @@ from django.shortcuts import render, redirect
 from .serializers import UserSerializer, ProfileSerializer
 from .models import User, Profile, Itinerary
 from django.http import JsonResponse, Http404
+
 from rest_framework.views import APIView
-from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-import json
+# from rest_framework.authentication import BasicAuthentication, TokenAuthentication
+# from rest_framework.authtoken.models import Token
 
 @api_view(['POST', ])
 def api_create_user(request, username):
@@ -22,16 +22,20 @@ def api_create_user(request, username):
 
         if uSerializer.is_valid():
             # if serialized data is valid, then save as a User model
-            uSerializer.save()
+            # uSerializer.save()
+            _user = User.objects.create_user(username = uSerializer.data['username'], password = uSerializer.data['password'])
+            _user.save()
             newUser = User.objects.get(username=request.data['user']['username'])
+            newUser.set_password(uSerializer.data.get('password'))
             # Serialize Profile json data using newUser.id + name + email + other fields to be decided
             pSerializer = ProfileSerializer(data = {'user': newUser.id, 'name': request.data['name'],'email':request.data['email']})
 
             if pSerializer.is_valid():
                 # if serialized data is valid, then save as a Profile model
                 pSerializer.save()
+                newProfile = Profile.objects.get(email=request.data['email'])
                 # return response that profile has been successfully created
-                return Response({"message": "Profile Created!"})
+                return Response({"message": "Profile Created!", "email": newProfile.email, "username": newUser.username})
             else:
                 # if unsuccessful, print errors
                 print(pSerializer.errors)
