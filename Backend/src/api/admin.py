@@ -1,3 +1,5 @@
 from django.contrib import admin
+# from api.models import Itinerary, Profile
 
-# Register your models here.
+# admin.site.register(Profile)
+# admin.site.register(Itinerary)

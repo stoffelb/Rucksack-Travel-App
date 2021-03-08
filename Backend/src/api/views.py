@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from .serializers import UserSerializer, ProfileSerializer
 from .models import User, Profile, Itinerary
 from django.http import JsonResponse, Http404
+from django.core.exceptions import MultipleObjectsReturned
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
-# from rest_framework.authentication import BasicAuthentication, TokenAuthentication
-# from rest_framework.authtoken.models import Token
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication
+from rest_framework.authtoken.models import Token
 
 @api_view(['POST', ])
 def api_create_user(request, username):
@@ -20,26 +21,35 @@ def api_create_user(request, username):
         # serialize User json data
         uSerializer = UserSerializer(data = request.data['user'])
 
-        if uSerializer.is_valid():
-            # if serialized data is valid, then save as a User model
-            # uSerializer.save()
-            _user = User.objects.create_user(username = uSerializer.data['username'], password = uSerializer.data['password'])
-            _user.save()
-            newUser = User.objects.get(username=request.data['user']['username'])
-            newUser.set_password(uSerializer.data.get('password'))
-            # Serialize Profile json data using newUser.id + name + email + other fields to be decided
-            pSerializer = ProfileSerializer(data = {'user': newUser.id, 'name': request.data['name'],'email':request.data['email']})
+        try:
+            Profile.objects.get(email=request.data['email'])
+        except MultipleObjectsReturned:
+            return Response({'message': 'problem finding email'})
+        except Profile.DoesNotExist:
+            if uSerializer.is_valid():
+                # if serialized data is valid, then save as a User model
+                # uSerializer.save()
+                _user = User.objects.create_user(username = uSerializer.data['username'], password = uSerializer.data['password'])
+                _user.save()
+                newUser = User.objects.get(username=request.data['user']['username'])
+                newUser.set_password(uSerializer.data.get('password'))
+                # Serialize Profile json data using newUser.id + name + email + other fields to be decided
+                pSerializer = ProfileSerializer(data = {'user': newUser.id, 'name': request.data['name'],'email':request.data['email']})
 
-            if pSerializer.is_valid():
-                # if serialized data is valid, then save as a Profile model
-                pSerializer.save()
-                newProfile = Profile.objects.get(email=request.data['email'])
-                # return response that profile has been successfully created
-                return Response({"message": "Profile Created!", "email": newProfile.email, "username": newUser.username})
-            else:
-                # if unsuccessful, print errors
-                print(pSerializer.errors)
-                return Response({'message':'not successful'})
+                if pSerializer.is_valid():
+                    # if serialized data is valid, then save as a Profile model
+                    pSerializer.save()
+                    try:
+                        newProfile = Profile.objects.get(email=request.data['email'])
+                    except Profile.DoesNotExist:
+                        return Response({'message': 'Profile object does not exist'})
+                    # return response that profile has been successfully created
+                    return Response({"message": "Profile Created!", "email": newProfile.email, "username": newUser.username})
+                else:
+                    # if unsuccessful, print errors
+                    print(pSerializer.errors)
+                    return Response({'message':'not successful'})
+            
 
     return Response({"message": "User Already Exists"})
 
