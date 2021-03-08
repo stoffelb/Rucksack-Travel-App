@@ -15,7 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
             return user
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer
     
     class Meta:
         model = Profile
