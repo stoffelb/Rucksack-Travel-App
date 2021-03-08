@@ -1,18 +1,55 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Profile</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="secondary">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-avatar>
-    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-  </ion-avatar>
-  <h1 style="font-weight: bold;">Jane Doe</h1>
-  <h3>@janedoe</h3>
-  <p style="vertical-align: middle;display: table-cell;">
-    <ion-icon name="phone-portrait-outline" size="small" color="primary"
-      style="width: 14px;height: 14px;vertical-align: middle;">
-    </ion-icon>
-  </p>
+  <ion-grid >
+    <ion-row class="ion-justify-content-center ion-padding-top">
+      <div>
+        <ion-avatar>
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-avatar>
+      </div>
+    </ion-row>
+    <ion-row class="ion-justify-content-center" >
+      <div>
+        <h5>@{{username}}</h5>
+      </div>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <div>
+        <h2 style="font-weight: bold;">{{name}}</h2>
+      </div>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <div>
+        <h6>{{email}}</h6>
+      </div>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>My Itineraries</ion-label>
+      <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>View Saved Itineraries</ion-label>
+      <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>Edit Account Info</ion-label>
+      <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+
+
 </ion-content>
