@@ -97,9 +97,10 @@ def delete_auth_token(request):
         except:
             pass
             
-        return Response(status=status.HTTP_202_ACCEPTED)
+        return Response("success", status=status.HTTP_202_ACCEPTED)
+        # return Response("success")
     else:
-        return Response(status=status.HTTP_403_FORBIDDEN)
+        return Response("login first !", status=status.HTTP_403_FORBIDDEN)
     
 
 
