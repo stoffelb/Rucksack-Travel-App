@@ -7,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePagePage implements OnInit {
 
-  constructor() { }
+  firstName = "First";
+  lastName = "Last";
+  username = "@firstname";
+  email = "email@gmail.com";
+
+  constructor() { 
+
+  }
 
   ngOnInit() {
   }
