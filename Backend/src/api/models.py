@@ -6,13 +6,15 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=0)
     name = models.CharField(max_length=50, blank=True)
-    email = models.EmailField(max_length=254, default = '')
+    email = models.EmailField(max_length=254, default='')
 
     def str(self):  # unicode for Python 2
         return self.user.username
+
 
 class Tag(models.Model):
     pass
@@ -39,6 +41,7 @@ class Itinerary(models.Model):
 
     def str(self):
         return self.itinerary_title + self.user.username
+
 
 # function is needed to create an authentication token for each user
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
