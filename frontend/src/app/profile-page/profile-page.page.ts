@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { User } from '../home/user';
 
 @Component({
   selector: 'app-profile-page',
@@ -7,7 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePagePage implements OnInit {
 
-  constructor() { }
+  name: string = "Erin Beachkofski";
+  user: User;
+  email: string = "erbeach527@gmail.com";
+  username: string = "erin";
+
+  constructor(private http: HttpClient) { 
+
+    var url: string = 'http://localhost:8000/api/erin';
+
+    alert(this.http.get(url));
+
+  }
 
   ngOnInit() {
   }
