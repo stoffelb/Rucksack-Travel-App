@@ -3,17 +3,18 @@ from .serializers import UserSerializer, ProfileSerializer
 from .models import User, Profile, Itinerary
 from django.http import JsonResponse, Http404
 from django.core.exceptions import MultipleObjectsReturned
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view, parser_classes
-from rest_framework.authentication import BasicAuthentication, TokenAuthentication
+from rest_framework.decorators import api_view, parser_classes, authentication_classes, permission_classes
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
 @api_view(['POST', ])
 def api_create_user(request, username):
-
     # see if user already exists
     try:
         user = User.objects.get(username=request.data['user']['username'])
@@ -28,9 +29,9 @@ def api_create_user(request, username):
         except Profile.DoesNotExist:
             if uSerializer.is_valid():
                 # if serialized data is valid, then save as a User model
-                # uSerializer.save()
-                _user = User.objects.create_user(username = uSerializer.data['username'], password = uSerializer.data['password'])
-                _user.save()
+                uSerializer.save()
+                # _user = User.objects.create_user(username = uSerializer.data['username'], password = uSerializer.data['password'])
+                # _user.save()
                 newUser = User.objects.get(username=request.data['user']['username'])
                 newUser.set_password(uSerializer.data.get('password'))
                 # Serialize Profile json data using newUser.id + name + email + other fields to be decided
@@ -53,7 +54,6 @@ def api_create_user(request, username):
 
     return Response({"message": "User Already Exists"})
 
-
 @api_view(['GET', ])
 def api_get_user(request, username):
     try:
@@ -66,21 +66,40 @@ def api_get_user(request, username):
     # serialize JSON object if a user with the specified username exists
     serializer = UserSerializer(_user)
     # return 'user exists' if user exists
-    return Response('user exists')
-
+    return Response({"message": "user exists!"})
 
 @api_view(['GET', ])
 def ProfileView(request, username):
-    _user = User.objects.get(username = username)
-    _profile = Profile.objects.get(user = _user)
-    #query profile, itinerarys, followers, etc. that are unique to the user/profile given
-    context = {}
-    context['Profile'] = ProfileSerializer(_profile).data
-    try:
-        context['Itineraries'] = Itinerary.objects.get(user = _user)
-    except:
-        context['Itineraries'] = 'none'
-    return Response(context)
+    if request.user.is_authenticated:
+        _user = User.objects.get(username = username)
+        _profile = Profile.objects.get(user = _user)
+        #query profile, itinerarys, followers, etc. that are unique to the user/profile given
+        context = {}
+        context['Profile']  = ProfileSerializer(_profile).data
+        try:
+            context['Itineraries'] = Itinerary.objects.get(user = _user)
+        except:
+            context['Itineraries'] = 'none'
+        return Response(context)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+# def HomeView(request)
+#     if request.user.is_authenticated:
+
+#     else:
+
+@api_view(['POST', ])
+def delete_auth_token(request):
+    if request.user.is_authenticated:
+        try:
+            request.user.auth_token.delete()
+        except:
+            pass
+            
+        return Response(status=status.HTTP_202_ACCEPTED)
+    else:
+        return Response(status=status.HTTP_403_FORBIDDEN)
     
 
 
