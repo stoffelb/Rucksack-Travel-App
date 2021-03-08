@@ -18,9 +18,7 @@ export class ProfilePagePage implements OnInit {
 
     var url: string = 'http://localhost:8000/api/erin';
 
-    // this.http.get(url).subscribe(data => {
-    //   console.log(data);
-    // });
+    alert(this.http.get(url));
 
   }
 
