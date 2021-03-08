@@ -29,15 +29,9 @@ def api_create_user(request, username):
         except Profile.DoesNotExist:
             if uSerializer.is_valid():
                 # if serialized data is valid, then save as a User model
-<<<<<<< HEAD
-                uSerializer.save()
-                # _user = User.objects.create_user(username = uSerializer.data['username'], password = uSerializer.data['password'])
-                # _user.save()
-=======
                 # uSerializer.save()
                 _user = User.objects.create_user(username=uSerializer.data['username'], password=uSerializer.data['password'])
                 _user.save()
->>>>>>> 62c8ce2a73a91b0be12ffc9e014e14f3d8fdb388
                 newUser = User.objects.get(username=request.data['user']['username'])
                 newUser.set_password(uSerializer.data.get('password'))
                 # Serialize Profile json data using newUser.id + name + email + other fields to be decided
