@@ -8,7 +8,7 @@ export class UserService {
   constructor(private http: HttpClient){ }
 
   loginUser(userData): Observable<any>{
-    return
+    return this.http.get('http://localhost:8000/api/get_user/', userData);
   }
 
   registerUser(userData): Observable<any>{
