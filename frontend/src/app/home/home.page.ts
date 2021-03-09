@@ -17,6 +17,9 @@ export class HomePage {
   //function to go to register page
 
   loginClick() {
+
+    if(this.user_name && this.user_password){
+
     const data: User = {
       username: this.user_name,
       password: this.user_password,
@@ -35,17 +38,9 @@ export class HomePage {
     };
 
     alert(this.http.get('http://localhost:8000/api/get_user/' + this.user_name));
-    // this.http.get('http://localhost:8000/api/get_user/' + this.user_name).subscribe(
-    //   (Response) => {
 
-    //     //code to execute after successful request
-    //     alert('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ');
-    //   },
-    //   (error) => {
-    //     alert('Sorry, this Username could not be found.');
-
-    //     //code to execute after failed request
-    //   }
-    // );
+  }else{
+    console.log("Please fill out both Username and Password fields!")
   }
+}
 }
