@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from './user';
-// import { Console } from 'node:console';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +36,11 @@ export class HomePage {
       params: params,
     };
 
-    alert(this.http.get('http://localhost:8000/api/get_user/' + this.user_name));
+    this.http.get('http://localhost:8000/api/get_user/' + this.user_name).subscribe(
+      response => {
+        alert();
+      }
+    )
 
   }else{
     console.log("Please fill out both Username and Password fields!")
