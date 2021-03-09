@@ -8,6 +8,7 @@ import { UserService } from '../user.services';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  providers: [UserService]
 })
 export class HomePage {
   user_name;
@@ -52,7 +53,7 @@ export class HomePage {
         alert('User logged in');
       },
       error => {
-        console.log('Error logging in', error);
+        console.log('Error logging in', error, data);
       }
     );
 
