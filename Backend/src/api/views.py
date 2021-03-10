@@ -103,8 +103,10 @@ def MainPageView(request):
     #     return Response("please log in !")
     try:
         everything = Itinerary.objects.all()
-        ooooohyeah = ItinerarySerializer(everything)
-        return Response(ooooohyeah)
+        context = {}
+        for e in Itinerary.objects.all():
+            context[e.itinerary_title] = ItinerarySerializer(e).data
+        return Response(context)
     except:
         return Response({"message": "There's nothing here !"})
 

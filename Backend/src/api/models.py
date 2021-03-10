@@ -34,7 +34,7 @@ class AccommodationTag(Tag):
 
 class Itinerary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
-    title = models.CharField(max_length=100)
+    itinerary_title = models.CharField(max_length=100)
     budget = models.IntegerField()
     duration_magnitude = models.IntegerField()
     # tag = models.ManyToManyField(Tag)
