@@ -90,22 +90,11 @@ def ProfileView(request, username):
 
 @api_view(['GET', ])
 def MainPageView(request):
-    # if request.user.is_authenticated:
-    #     context = {}
-    #     try: 
-    #         everything = Itinerary.objects.all()
-    #     except:
-    #         return Response("There's Nothing Here")
-
-    #     context['Itineraries'] = random.sample(everything, 10)
-    #     return Response(context)
-    # else:
-    #     return Response("please log in !")
     try:
         everything = Itinerary.objects.all()
         context = {}
         for e in Itinerary.objects.all():
-            context[e.itinerary_title] = ItinerarySerializer(e).data
+            context[e.title] = ItinerarySerializer(e).data
         return Response(context)
     except:
         return Response({"message": "There's nothing here !"})
@@ -119,34 +108,8 @@ def delete_auth_token(request):
             pass
             
         return Response("success", status=status.HTTP_202_ACCEPTED)
-        # return Response("success")
     else:
         return Response("login first !", status=status.HTTP_403_FORBIDDEN)
     
 
 
-# User Profile Update
-# @api_view(['POST', ])
-# def api_update_buoy_data(request, api_key, buoy_id):
-#     try:  # find account with specified api_key
-#         acc = Account.objects.get(api_key=api_key)
-#     except Account.DoesNotExist:
-#         return Response({"message": "API key doesn't exist!"})
-#
-#     try:  # make sure the buoy we are updating actually exists
-#         _buoy = Buoy.objects.get(id=buoy_id)
-#     except Buoy.DoesNotExist:
-#         # if it doesn't, send HTTP 404 response
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-#
-#     # check if the given API key is the same as the API key connected to the buoy's user
-#     if acc.api_key != _buoy.user.api_key:
-#         return Response({"message": "Invalid API key!"})
-#
-#     serializer = DataSerializer(data=request.data)
-#
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response({"message": "Buoy Updated!", "buoy_data": serializer.data})
-#
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

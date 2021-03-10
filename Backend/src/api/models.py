@@ -6,7 +6,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=0)
     name = models.CharField(max_length=50, blank=True)
@@ -15,22 +14,18 @@ class Profile(models.Model):
     def str(self):  # unicode for Python 2
         return self.user.username
 
+class TransportationTag(models.TextChoices):
+    CAR = 'CAR'
+    TRAIN = 'TRAIN'
+    PLANE = 'PLANE'
+    MOTORCYCLE = 'MOTORCYCLE'
+    BICYCLE = 'BICYCLE'
 
-class Tag(models.Model):
-    pass
-
-
-class TransportationTag(Tag):
-    transport_type = models.CharField(max_length=100)
-
-
-class LocationTag(Tag):
-    location_name = models.CharField(max_length=100)
-
-
-class AccommodationTag(Tag):
-    accommodation_type = models.CharField(max_length=100)
-
+class AccommodationTag(models.TextChoices):
+    HOTEL = 'Hotel'
+    HOSTEL = 'Hostel'
+    CONDO = 'Condo'
+    CAMP = 'Campsite'
 
 class Itinerary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
@@ -38,8 +33,10 @@ class Itinerary(models.Model):
     description = models.TextField(max_length=500, default='')
     budget = models.IntegerField()
     duration_magnitude = models.IntegerField()
-    tag = models.ManyToManyField(Tag)
-
+    # location_tag = models.CharField(max_length=20, default='')
+    transportation_tag = models.TextField(choices=TransportationTag.choices, default='')
+    accommodation_tag = models.TextField(choices=AccommodationTag.choices, default='')
+    # tag = models.ForeignKey(Tag, on_delete=models.CASCADE, default=0)
     def str(self):
         return self.itinerary_title + self.user.username
 

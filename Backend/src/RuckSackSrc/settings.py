@@ -44,6 +44,21 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+TRANSPORTATION_TAGS = [
+    ('CAR', 'CAR'),
+    ('TRN', 'TRAIN'),
+    ('PLN', 'PLANE'),
+    ('MTR', 'MOTORCYCLE'),
+    ('CYC', 'BICYCLE'),
+]
+
+ACCOMMODATION_TAG = [
+    ('HTL', 'HOTEL'),
+    ('HST', 'HOSTEL'),
+    ('CND', 'CONDO'),
+    ('CMP', 'CAMPSITE'),
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
