@@ -17,9 +17,7 @@ export class ProfilePagePage implements OnInit {
   constructor(private http: HttpClient) { 
 
     var url: string = 'http://localhost:8000/api/erin';
-
-    alert(this.http.get(url));
-
+    
   }
 
   ngOnInit() {

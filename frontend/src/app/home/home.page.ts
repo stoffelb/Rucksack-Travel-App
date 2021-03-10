@@ -50,7 +50,7 @@ export class HomePage {
         localStorage.setItem('username', data.username);
 
         //navigate to main-page
-        this.router.navigate(['/main-page']);
+        this.router.navigate(['/tabs']);
 
 
       },

@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   },
   {
     path: 'home',
@@ -18,12 +18,6 @@ const routes: Routes = [
     path: 'user-forgot-password',
     loadChildren: () => import('./user-forgot-password/user-forgot-password.module').then( m => m.UserForgotPasswordPageModule)
   },
-  {
-    path: 'main-page',
-    loadChildren: () => import('./main-page/main-page.module').then( m => m.MainPagePageModule)
-  },
-
-
 ];
 
 @NgModule({
