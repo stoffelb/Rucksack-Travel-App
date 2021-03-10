@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>main-page</ion-title>
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
 
+      <ion-tab-button tab="schedule">
+        <ion-icon name="globe-outline" color="tertiary"></ion-icon>
+        <ion-label>Itineraries</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="schedule">
+        <ion-icon name="home-outline" color="success"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="schedule">
+        <ion-icon name="create-outline" color="danger"></ion-icon>
+        <ion-label>Create</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>
+

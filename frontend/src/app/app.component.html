@@ -1,3 +1,40 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+    <ion-menu menuId="main-menu" content-id="main">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Options</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle>
+
+          <!--This router link can be changed later-->
+          <ion-item routerLink="/main-page">
+            <ion-icon name="search-outline" slot="start"></ion-icon>
+            <ion-label>Search</ion-label>
+          </ion-item>
+
+          <ion-item routerLink="/home">
+            <ion-icon name="log-in-outline" slot="start"></ion-icon>
+            <ion-label>Login</ion-label>
+          </ion-item>
+
+          <ion-item routerLink="/user-register">
+            <ion-icon name="person-add-outline" slot="start"></ion-icon>
+            <ion-label>Register</ion-label>
+          </ion-item>
+
+          <!--This router link can be changed later-->
+          <ion-item routerLink="/main-page">
+            <ion-icon name="help-outline" slot="start"></ion-icon>
+            <ion-label>Help</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
