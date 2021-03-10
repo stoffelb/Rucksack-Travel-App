@@ -42,6 +42,10 @@ export class UserService {
     return this.http.post('http://localhost:8000/api/logout/', null, {headers: headers});
   }
 
+  globalItineraryList(): Observable<any>{
+    return this.http.get('http://localhost:8000/api/home_view/')
+  }
+
   registerUser(userData): Observable<any>{
     return
   }
