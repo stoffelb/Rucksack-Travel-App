@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-// import { User } from './user';
+import { User } from '../home/User';
 import { UserService } from '../user.services';
 
 
@@ -17,7 +17,7 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo ei
 export class MainPagePage implements OnInit {
   items: any[] = [];
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router) { 
+  constructor(private http: HttpClient, private userService: UserService, private router: Router) {
     for (let i = 0; i < 1000; i++) {
       this.items.push({
         name: "Test Itinerary",
