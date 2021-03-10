@@ -1,3 +1,4 @@
+
 #container {
   text-align: center;
 
@@ -34,7 +35,7 @@ h2 {
 }
 
 .background-image{
-  --background: url(/assets/imgs/bg-img2.jpg) no-repeat center center / cover;;
+  --background: url(/assets/imgs/beach.jpg) no-repeat center center / cover;
 }
 
 .card-center{
@@ -46,4 +47,12 @@ h2 {
 .bg-transparent {
   background: transparent;
   box-shadow:none !important
+}
+
+.login-padding {
+  padding: 0px 0px 40px 0px;
+}
+
+ion-card-content {
+  background-color: rgba(0, 0, 0, 0) ;
 }

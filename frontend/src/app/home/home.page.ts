@@ -52,7 +52,6 @@ export class HomePage {
         //navigate to main-page
         this.router.navigate(['/tabs']);
 
-
       },
       error => {
         console.log('Error logging in', error, data);
