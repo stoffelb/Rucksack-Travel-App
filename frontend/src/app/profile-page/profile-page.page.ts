@@ -15,10 +15,10 @@ export class ProfilePagePage implements OnInit {
   email: string = "erbeach527@gmail.com";
   username: string = "erin";
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient, private router: Router) {
 
-    var url: string = 'http://localhost:8000/api/erin';
-    
+    var url: string = 'http://localhost:8000/api/' + localStorage.getItem('username');
+
   }
 
   ngOnInit() {
