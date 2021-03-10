@@ -28,15 +28,15 @@
   </ion-grid>
 
   <ion-list class="ion-margin-top">
-    <ion-item>
+    <ion-item (click)="goToMyItineraries()">
       <ion-label>My Itineraries</ion-label>
       <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToViewSaved()">
       <ion-label>View Saved Itineraries</ion-label>
       <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToEditProfile()">
       <ion-label>Edit Account Info</ion-label>
       <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
     </ion-item>

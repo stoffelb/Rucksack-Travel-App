@@ -24,6 +24,21 @@ export class ProfilePagePage implements OnInit {
   ngOnInit() {
   }
 
+  goToMyItineraries(){
+    //navigate to profile-my-itineraries
+    this.router.navigate(['/profile-my-itineraries']);
+  }
+
+  goToEditProfile() {
+    //navigate to profile-edit
+    this.router.navigate(['/profile-edit']);
+  }
+
+  goToViewSaved() {
+    //navigate to profile-edit
+    this.router.navigate(['/profile-view-saved']);
+  }
+
   logoutClick() {
     // TODO: backend logout stuff
 

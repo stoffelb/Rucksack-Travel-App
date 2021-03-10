@@ -12,28 +12,26 @@
 </ion-header>
 
 <ion-content>
-  <ion-content>
-    <ion-virtual-scroll [items]="items" approxItemHeight="320px">
-      <ion-card *virtualItem="let item; let itemBounds = bounds;">
-      <ion-card-header>
-        <ion-card-title>{{ item.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div class="it-budget-duration-div">
-          <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
-          <label class="ion-float-right ">Duration: {{ item.duration }}</label>
-        </div>
-        <div class="it-chips-div ion-float-left">
-          <ion-chip>Chip</ion-chip> 
-          <ion-chip>Chippy</ion-chip>
-          <ion-chip>Chop</ion-chip>
-        </div>
-        <div class="it-description-div ion-float-left">
-          {{ item.content }}
-        </div>
-      </ion-card-content>
-      </ion-card>
-    </ion-virtual-scroll>
-  </ion-content>
+  <ion-virtual-scroll [items]="items" approxItemHeight="320px">
+    <ion-card *virtualItem="let item; let itemBounds = bounds;">
+    <ion-card-header>
+      <ion-card-title>{{ item.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="it-budget-duration-div">
+        <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
+        <label class="ion-float-right ">Duration: {{ item.duration }}</label>
+      </div>
+      <div class="it-chips-div ion-float-left">
+        <ion-chip>Chip</ion-chip> 
+        <ion-chip>Chippy</ion-chip>
+        <ion-chip>Chop</ion-chip>
+      </div>
+      <div class="it-description-div ion-float-left">
+        {{ item.content }}
+      </div>
+    </ion-card-content>
+    </ion-card>
+  </ion-virtual-scroll>
 </ion-content>
 

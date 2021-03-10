@@ -18,6 +18,18 @@ const routes: Routes = [
     path: 'user-forgot-password',
     loadChildren: () => import('./user-forgot-password/user-forgot-password.module').then( m => m.UserForgotPasswordPageModule)
   },
+  {
+    path: 'profile-view-saved',
+    loadChildren: () => import('./profile-view-saved/profile-view-saved.module').then( m => m.ProfileViewSavedPageModule)
+  },
+  {
+    path: 'profile-edit',
+    loadChildren: () => import('./profile-edit/profile-edit.module').then( m => m.ProfileEditPageModule)
+  },
+  {
+    path: 'profile-my-itineraries',
+    loadChildren: () => import('./profile-my-itineraries/profile-my-itineraries.module').then( m => m.ProfileMyItinerariesPageModule)
+  },
 ];
 
 @NgModule({
