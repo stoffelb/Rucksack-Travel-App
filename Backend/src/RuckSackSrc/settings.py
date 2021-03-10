@@ -67,7 +67,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8100",
+    "http://localhost:8102",
 ]
 
 ROOT_URLCONF = 'RuckSackSrc.urls'

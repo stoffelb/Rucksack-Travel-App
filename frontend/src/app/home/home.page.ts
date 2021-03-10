@@ -14,7 +14,7 @@ export class HomePage {
   user_name;
   user_password;
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(private http: HttpClient, private userService: UserService, private router: Router) {}
   //function to go to register page
 
   loginClick() {
@@ -39,18 +39,20 @@ export class HomePage {
       params: params,
     };
 
-    // this.http.get('http://localhost:8000/api/get_user/' + this.user_name).subscribe(
-    //   response => {
-    //     alert();
-    //   }
-    // )
-
-
-
     //call to user service login method
     this.userService.loginUser(data).subscribe(
       response => {
-        alert('User logged in');
+        //Get the token from the post response
+        var key = response.token;
+
+        //Need to encrypt the token before storing it in local storage (Come back to later)
+        localStorage.setItem('sessionToken', key);
+        localStorage.setItem('username', data.username);
+
+        //navigate to main-page
+        this.router.navigate(['/main-page']);
+
+
       },
       error => {
         console.log('Error logging in', error, data);
