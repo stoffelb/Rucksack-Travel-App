@@ -16,7 +16,6 @@ export class MainPagePage implements OnInit {
   constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    console.log(localStorage.getItem('sessionToken'));
     this.userService.logoutUser(localStorage.getItem('sessionToken')).subscribe(
       response => {
         console.log(response);
@@ -26,6 +25,8 @@ export class MainPagePage implements OnInit {
       }
     );
     console.log(localStorage.getItem('sessionToken'));
+
+    this.userService.validateToken();
   }
 
 }
