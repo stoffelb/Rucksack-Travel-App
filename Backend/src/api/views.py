@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .serializers import UserSerializer, ProfileSerializer
+from .serializers import UserSerializer, ProfileSerializer, ItinerarySerializer
 from .models import User, Profile, Itinerary
 from django.http import JsonResponse, Http404
 from django.core.exceptions import MultipleObjectsReturned
@@ -90,16 +90,23 @@ def ProfileView(request, username):
 
 @api_view(['GET', ])
 def MainPageView(request):
-    if request.user.is_authenticated:
-        context = {}
-        try: 
-            everything = Itinerary.objects.all()
-        except:
-            return Response("There's Nothing Here")
+    # if request.user.is_authenticated:
+    #     context = {}
+    #     try: 
+    #         everything = Itinerary.objects.all()
+    #     except:
+    #         return Response("There's Nothing Here")
 
-        context['Itineraries'] = random.sample(everything, 10)
-    else:
-        return Response("please log in !")
+    #     context['Itineraries'] = random.sample(everything, 10)
+    #     return Response(context)
+    # else:
+    #     return Response("please log in !")
+    try:
+        everything = Itinerary.objects.all()
+        ooooohyeah = ItinerarySerializer(everything)
+        return Response(ooooohyeah)
+    except:
+        return Response({"message": "There's nothing here !"})
 
 @api_view(['POST', ])
 def delete_auth_token(request):
