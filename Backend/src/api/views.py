@@ -65,7 +65,7 @@ def api_get_user(request, username):
     # serialize JSON object if a user with the specified username exists
     serializer = UserSerializer(_user)
     # return 'user exists' if user exists
-    return Response(serializer.data)
+    return Response(serializer.data);
 
 
 @api_view(['GET', ])

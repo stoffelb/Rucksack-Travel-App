@@ -18,6 +18,6 @@ urlpatterns = [
     #POST requests
     path('user_create/<str:username>', api_create_user, name="create user"),
     path('logout/', delete_auth_token, name="logout"),
-    path('api-token-auth/',  obtain_auth_token, ), 
+    path('login/',  obtain_auth_token, ), 
 
 ]
