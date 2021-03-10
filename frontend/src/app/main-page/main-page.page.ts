@@ -6,7 +6,7 @@ import { UserService } from '../user.services';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {KeyValuePipe } from '@angular/common';
-import { itineraryObject } from '../itineraryObject';
+import { ItineraryObject } from '../ItineraryObject';
 
 
 const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
@@ -16,12 +16,12 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo ei
   selector: 'app-main-page',
   templateUrl: './main-page.page.html',
   styleUrls: ['./main-page.page.scss'],
-  providers: [UserService, itineraryObject],
+  providers: [UserService, ItineraryObject],
 })
 export class MainPagePage implements OnInit {
   items: any[] = [];
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: itineraryObject) {
+  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject) {
 
 
 
@@ -38,17 +38,18 @@ export class MainPagePage implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.globalItineraryList().pipe(map(item => Object.assign(new itineraryObject(), Object.values(item)))).subscribe(
+    this.userService.globalItineraryList().pipe(map(item => Object.values(item))).subscribe(
       data => {
+        // for(var i in data)
+          // this.itineraryObject = data[i];
         console.log(data);
-        for(var i of data){
-        this.items.push({
+        // for(var i of data){
+        // this.items.push({
           // name: i.title,
           // duration: i.duration_magnitude,
           // budget: i.budget,
           // content: i.description
-      });
-    }
+      // });
       },
       error => {
         console.log('Error loading global data' + error);

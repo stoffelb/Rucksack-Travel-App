@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class itineraryObject {
+export class ItineraryObject {
 
-  constructor(){
-    var title;
-    var duration_magnitude;
-    var budget;
-    var description;
+  title: String;
+  duration_magnitude: Number;
+  budget: Number;
+  description: String;
 
-  }
 }
