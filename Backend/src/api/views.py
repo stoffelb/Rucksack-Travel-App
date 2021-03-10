@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .serializers import UserSerializer, ProfileSerializer
+from .serializers import UserSerializer, ProfileSerializer, ItinerarySerializer
 from .models import User, Profile, Itinerary
 from django.http import JsonResponse, Http404
 from django.core.exceptions import MultipleObjectsReturned
@@ -12,6 +12,7 @@ from rest_framework.decorators import api_view, parser_classes, authentication_c
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
+import random
 
 @api_view(['POST', ])
 def api_create_user(request, username):
@@ -55,22 +56,25 @@ def api_create_user(request, username):
 
 @api_view(['GET', ])
 def api_get_user(request, username):
-    try:
-        # query user based on username
-        _user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        # if user doesn't exist, return following response
-        return Response({"message": "user doesn't exist!"})
-
-    # serialize JSON object if a user with the specified username exists
-    serializer = UserSerializer(_user)
-    # return 'user exists' if user exists
-    return Response(serializer.data);
+    if request.user.is_authenticated:
+        try:
+            # query user based on username
+            _user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            # if user doesn't exist, return following response
+            return Response({"message": "user doesn't exist!"})
+        # serialize JSON object if a user with the specified username exists
+        serializer = UserSerializer(_user)
+        # return 'user exists' if user exists
+        return Response(serializer.data)
+    else:
+        return Response('whoooooooops')
 
 
 @api_view(['GET', ])
 def ProfileView(request, username):
     if request.user.is_authenticated:
+        request.user
         _user = User.objects.get(username = username)
         _profile = Profile.objects.get(user = _user)
         #query profile, itinerarys, followers, etc. that are unique to the user/profile given
@@ -84,10 +88,27 @@ def ProfileView(request, username):
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-# def HomeView(request)
-#     if request.user.is_authenticated:
+@api_view(['GET', ])
+def MainPageView(request):
+    # if request.user.is_authenticated:
+    #     context = {}
+    #     try: 
+    #         everything = Itinerary.objects.all()
+    #     except:
+    #         return Response("There's Nothing Here")
 
-#     else:
+    #     context['Itineraries'] = random.sample(everything, 10)
+    #     return Response(context)
+    # else:
+    #     return Response("please log in !")
+    try:
+        everything = Itinerary.objects.all()
+        context = {}
+        for e in Itinerary.objects.all():
+            context[e.itinerary_title] = ItinerarySerializer(e).data
+        return Response(context)
+    except:
+        return Response({"message": "There's nothing here !"})
 
 @api_view(['POST', ])
 def delete_auth_token(request):

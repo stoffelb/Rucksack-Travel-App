@@ -8,23 +8,24 @@ export class UserService {
   constructor(private http: HttpClient){ }
 
   validateToken(){
-    var sessionKey;
-    this.http.get('http://localhost:8000/api/api-token-auth/' + localStorage.getItem('username')).subscribe(
-      response => {
-        sessionKey = response;
-        console.log(sessionKey);
-      },
-      error => {
-        console.log("Error validating token");
-      }
-    );
-    console.log(sessionKey);
-    if(JSON.stringify(sessionKey) === localStorage.getItem('sessionKey')){
-      console.log("Token is valid");
-    }
-    else{
-      console.log("Token is invlaid");
-    }
+    // var sessionKey;
+    // this.http.post('http://localhost:8000/api/login/', {'username'}, {responseType: 'json'}).subscribe(
+    //   response => {
+    //     sessionKey = response;
+    //     if(JSON.stringify(sessionKey) === localStorage.getItem('sessionKey')){
+    //       console.log("Token is valid");
+    //     }
+    //     else{
+    //       console.log("Token is invlaid");
+    //     }
+    //     console.log(sessionKey);
+    //   },
+    //   error => {
+    //     console.log("Error validating token");
+    //   }
+    // );
+    // console.log(sessionKey);
+
   }
 
   loginUser(userData): Observable<any>{

@@ -37,7 +37,7 @@ class Itinerary(models.Model):
     itinerary_title = models.CharField(max_length=100)
     budget = models.IntegerField()
     duration_magnitude = models.IntegerField()
-    tag = models.ManyToManyField(Tag)
+    # tag = models.ManyToManyField(Tag)
 
     def str(self):
         return self.itinerary_title + self.user.username

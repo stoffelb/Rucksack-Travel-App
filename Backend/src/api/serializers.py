@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Profile
+from .models import User, Profile, Itinerary
 from django import forms
 
 
@@ -19,3 +19,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('user', 'name', 'email')
+
+class ItinerarySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Itinerary
+        fields = ('user', 'itinerary_title', 'budget', 'duration_magnitude')
