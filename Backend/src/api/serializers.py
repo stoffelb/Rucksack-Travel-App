@@ -24,4 +24,4 @@ class ItinerarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Itinerary
-        fields = ('user', 'itinerary_title', 'budget', 'duration_magnitude')
+        fields = ('user', 'title', 'budget', 'duration_magnitude', 'description', 'transportation_tag', 'accommodation_tag')
