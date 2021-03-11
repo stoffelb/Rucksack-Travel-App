@@ -20,8 +20,7 @@ export class UserRegisterPage implements OnInit {
 
   constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   registerClick(){
 
