@@ -100,6 +100,17 @@ def MainPageView(request):
         return Response({"message": "There's nothing here !"})
 
 @api_view(['POST', ])
+def api_create_itinerary(request, token_id):
+    try:
+        user = 
+    iSerializer = ItinerarySeralizer(data=)
+    
+
+@api_view(['GET', ])
+def api_get_itinerary(request, username, title):
+    pass
+
+@api_view(['POST', ])
 def delete_auth_token(request):
     if request.user.is_authenticated:
         try:
