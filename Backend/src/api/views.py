@@ -102,13 +102,35 @@ def MainPageView(request):
 @api_view(['POST', ])
 def api_create_itinerary(request, token_id):
     try:
-        user = 
-    iSerializer = ItinerarySeralizer(data=)
+        user = Token.objects.get(key=token_id).user
+    except:
+        return Response("ERROR LOL")
+
+    newItinerary = ItinerarySerializer(data = request.data)
+
+    if newItinerary.is_valid():
+        newItinerary.save()
+        return Response("success")
+
+    return Response("ERROR")
     
 
-@api_view(['GET', ])
-def api_get_itinerary(request, username, title):
-    pass
+# @api_view(['GET', ])
+# def api_get_itinerary(request, title):
+#     if request.user.is_authenticated:
+#         try:
+#             # query user based on username
+#             _user = User.objects.get(username=username)
+#         except User.DoesNotExist:
+#             # if user doesn't exist, return following response
+#             return Response({"message": "user doesn't exist!"})
+#         # serialize JSON object if a user with the specified username exists
+#         serializer = UserSerializer(_user)
+#         # return 'user exists' if user exists
+#         return Response(serializer.data)
+#     else:
+#         return Response('whoooooooops')
+
 
 @api_view(['POST', ])
 def delete_auth_token(request):
