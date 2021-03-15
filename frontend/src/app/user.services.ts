@@ -46,6 +46,10 @@ export class UserService {
     return this.http.get('http://localhost:8000/api/home_view/')
   }
 
+  getUserProfile(username): Observable<any>{
+    return this.http.get('http://localhost:8000/api/' + username);
+  }
+
   registerUser(userData): Observable<any>{
     return
   }
