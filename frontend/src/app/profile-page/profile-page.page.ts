@@ -29,23 +29,19 @@ export class ProfilePagePage implements OnInit {
     console.log(this.username);
     this.userService.getUserProfile(this.token,this.username).subscribe(
       data => {
-        console.log(data[0]);
+        //Set the variables for userInfo and MyItineraries from the returned call
         var userInfo = data[0];
         var myItineraries = data[1];
 
         this.name = userInfo.name;
         this.email = userInfo.email;
 
-
-        for(var elements in data){
-          console.log(elements);
-        }
         console.log('Data: ' + data);
       },
       error => {
         console.log('Error: ' + error);
       }
-    )
+    );
   }
 
   goToMyItineraries(){
