@@ -15,11 +15,11 @@ class Profile(models.Model):
         return self.user.username
 
 class TransportationTag(models.TextChoices):
-    CAR = 'CAR'
-    TRAIN = 'TRAIN'
-    PLANE = 'PLANE'
-    MOTORCYCLE = 'MOTORCYCLE'
-    BICYCLE = 'BICYCLE'
+    CAR = 'Car'
+    TRAIN = 'Train'
+    PLANE = 'Plane'
+    MOTORCYCLE = 'Motorcycle'
+    BICYCLE = 'Bicycle'
 
 class AccommodationTag(models.TextChoices):
     HOTEL = 'Hotel'
