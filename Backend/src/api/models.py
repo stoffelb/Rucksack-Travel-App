@@ -36,8 +36,13 @@ class Itinerary(models.Model):
     location_tag = models.CharField(max_length=20, default='')
     transportation_tag = models.TextField(choices=TransportationTag.choices, default='')
     accommodation_tag = models.TextField(choices=AccommodationTag.choices, default='')
+
     def str(self):
         return self.itinerary_title + self.user.username
+
+    def save(self, **kwargs):
+        self.location_tag = self.location_tag.lower()
+        return super(Itinerary, self).save( **kwargs)
 
 
 # function is needed to create an authentication token for each user

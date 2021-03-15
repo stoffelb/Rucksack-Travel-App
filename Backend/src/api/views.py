@@ -74,16 +74,18 @@ def api_get_user(request, username):
 @api_view(['GET', ])
 def ProfileView(request, username):
     if request.user.is_authenticated:
-        request.user
         _user = User.objects.get(username = username)
         _profile = Profile.objects.get(user = _user)
         #query profile, itinerarys, followers, etc. that are unique to the user/profile given
-        context = {}
-        context['Profile']  = ProfileSerializer(_profile).data
-        try:
-            context['Itineraries'] = Itinerary.objects.get(user = _user)
-        except:
-            context['Itineraries'] = 'none'
+        context = []
+        itineraries = []
+        context.insert(0,ProfileSerializer(_profile).data)
+
+        for e in Itinerary.objects.filter(user = _user):
+            itineraries.insert(0, ItinerarySerializer(e).data)
+
+        context.insert(1, itineraries)
+
         return Response(context)
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -91,28 +93,27 @@ def ProfileView(request, username):
 @api_view(['GET', ])
 def MainPageView(request):
     try:
-        everything = Itinerary.objects.all()
-        context = {}
+        context = []
         for e in Itinerary.objects.all():
-            context[e.title] = ItinerarySerializer(e).data
+            context.insert(0,ItinerarySerializer(e).data)
         return Response(context)
     except:
         return Response({"message": "There's nothing here !"})
 
 @api_view(['POST', ])
-def api_create_itinerary(request, token_id):
-    try:
-        user = Token.objects.get(key=token_id).user
-    except:
-        return Response("ERROR LOL")
+def api_create_itinerary(request):
+    if request.user.is_authenticated:
+        # need user for itinerary
+        request.data["user"] = request.user.id
+        newItinerary = ItinerarySerializer(data = request.data)
 
-    newItinerary = ItinerarySerializer(data = request.data)
+        if newItinerary.is_valid():
+            newItinerary.save()
+            return Response("success")
 
-    if newItinerary.is_valid():
-        newItinerary.save()
-        return Response("success")
-
-    return Response("ERROR")
+        return Response("ERROR")
+    else:
+        return Response("please login")
     
 
 @api_view(['GET', ])
@@ -127,7 +128,7 @@ def api_get_itinerary(request, location_tag):
     result_list = []
     for itinerary in _itineraryList:
         serializer = ItinerarySerializer(itinerary)
-        result_list.insert(serializer.data)
+        result_list.insert(0,serializer.data)
 
     # return 'Itinerary exists' if user exists
     return Response(result_list)
