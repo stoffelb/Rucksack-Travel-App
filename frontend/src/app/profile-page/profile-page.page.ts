@@ -12,10 +12,11 @@ import { UserService } from '../user.services';
 })
 export class ProfilePagePage implements OnInit {
 
-  name: string = "Erin Beachkofski";
+  name: string;
   user: User;
-  email: string = "erbeach527@gmail.com";
+  email: string;
   username: string = localStorage.getItem('username');
+  token: string = localStorage.getItem('sessionToken');
 
   constructor(private http: HttpClient, private router: Router, private userService: UserService) {
 
@@ -24,9 +25,21 @@ export class ProfilePagePage implements OnInit {
   }
 
   ngOnInit() {
+    console.log(localStorage.getItem('sessionToken'));
     console.log(this.username);
-    this.userService.getUserProfile(this.username).subscribe(
+    this.userService.getUserProfile(this.token,this.username).subscribe(
       data => {
+        console.log(data[0]);
+        var userInfo = data[0];
+        var myItineraries = data[1];
+
+        this.name = userInfo.name;
+        this.email = userInfo.email;
+
+
+        for(var elements in data){
+          console.log(elements);
+        }
         console.log('Data: ' + data);
       },
       error => {
@@ -54,7 +67,14 @@ export class ProfilePagePage implements OnInit {
     // TODO: backend logout stuff
     var token = localStorage.getItem('sessionToken');
     console.log(token);
-    this.userService.logoutUser(token);
+    this.userService.logoutUser(token).subscribe(
+      data => {
+        console.log('User logged out ' + data);
+      },
+      error => {
+        console.log('Error: ' + error)
+      }
+    );
     //navigate to main-page
     this.router.navigate(['/home']);
   }
