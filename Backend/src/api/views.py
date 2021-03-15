@@ -115,21 +115,22 @@ def api_create_itinerary(request, token_id):
     return Response("ERROR")
     
 
-# @api_view(['GET', ])
-# def api_get_itinerary(request, title):
-#     if request.user.is_authenticated:
-#         try:
-#             # query user based on username
-#             _user = User.objects.get(username=username)
-#         except User.DoesNotExist:
-#             # if user doesn't exist, return following response
-#             return Response({"message": "user doesn't exist!"})
-#         # serialize JSON object if a user with the specified username exists
-#         serializer = UserSerializer(_user)
-#         # return 'user exists' if user exists
-#         return Response(serializer.data)
-#     else:
-#         return Response('whoooooooops')
+@api_view(['GET', ])
+def api_get_itinerary(request, location_tag):
+    try:
+        # query Itinerary based on location_tag
+        _itineraryList = Itinerary.objects.filter(location_tag=location_tag)
+    except Itinerary.DoesNotExist:
+        # if Itinerary doesn't exist, return following response
+        return Response({"message": "Itinerary doesn't exist!"})
+    # serialize JSON object if a user with the specified Itinerary exists
+    result_list = []
+    for itinerary in _itineraryList:
+        serializer = ItinerarySerializer(itinerary)
+        result_list.insert(serializer.data)
+
+    # return 'Itinerary exists' if user exists
+    return Response(result_list)
 
 
 @api_view(['POST', ])
