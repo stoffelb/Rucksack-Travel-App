@@ -33,10 +33,9 @@ class Itinerary(models.Model):
     description = models.TextField(max_length=500, default='')
     budget = models.IntegerField(default=0)
     duration_magnitude = models.IntegerField(default=0)
-    # location_tag = models.CharField(max_length=20, default='')
+    location_tag = models.CharField(max_length=20, default='')
     transportation_tag = models.TextField(choices=TransportationTag.choices, default='')
     accommodation_tag = models.TextField(choices=AccommodationTag.choices, default='')
-    # tag = models.ForeignKey(Tag, on_delete=models.CASCADE, default=0)
     def str(self):
         return self.itinerary_title + self.user.username
 
