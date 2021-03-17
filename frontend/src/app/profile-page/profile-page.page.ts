@@ -26,7 +26,6 @@ export class ProfilePagePage implements OnInit {
 
   ngOnInit() {
     console.log(localStorage.getItem('sessionToken'));
-    console.log(this.username);
     this.userService.getUserProfile(this.token,this.username).subscribe(
       data => {
         //Set the variables for userInfo and MyItineraries from the returned call
@@ -62,7 +61,6 @@ export class ProfilePagePage implements OnInit {
   logoutClick() {
     // TODO: backend logout stuff
     var token = localStorage.getItem('sessionToken');
-    console.log(token);
     this.userService.logoutUser(token).subscribe(
       data => {
         console.log('User logged out ' + data);

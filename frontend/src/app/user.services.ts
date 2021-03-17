@@ -30,7 +30,6 @@ export class UserService {
   }
 
   loginUser(userData): Observable<any>{
-    console.log(userData);
     return this.http.post('http://localhost:8000/api/login/', userData, {responseType: 'json'});
   }
 
@@ -39,7 +38,6 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': 'Token ' + token,
     });
-    console.log(headers);
     return this.http.post('http://localhost:8000/api/logout/', null, {headers: headers});
   }
 
@@ -74,7 +72,7 @@ export class UserService {
   }
 
   registerUser(userData): Observable<any>{
-    return
+    return this.http.post('http://localhost:8000/api/user_create/' + userData.user.username, userData);
   }
 
   forgotPasswordUser(userData): Observable<any>{

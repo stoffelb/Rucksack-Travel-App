@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { UserService } from '../user.services';
+import { UserProfileObject } from '../UserProfileObject';
 
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.page.html',
   styleUrls: ['./user-register.page.scss'],
-  providers: [UserService]
+  providers: [UserService,UserProfileObject]
 })
 export class UserRegisterPage implements OnInit {
 
@@ -18,7 +19,7 @@ export class UserRegisterPage implements OnInit {
   user_password;
   user_password_confirm
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
+  constructor(private http: HttpClient, private userService: UserService, private router: Router, private userProfileObject: UserProfileObject) { }
 
   ngOnInit() {}
 
@@ -26,8 +27,22 @@ export class UserRegisterPage implements OnInit {
 
     if(this.first_name && this.last_name && this.email && this.user_name && this.user_password && this.user_password_confirm){
       if(this.user_password === this.user_password_confirm){
-
+        //create new user profile object to pass into http request
+        var newProfile = {
+          'user': {'username': this.user_name, 'password': this.user_password},
+          'name': this.first_name + "" + this.last_name,
+          'email': this.email
+        };
         //START HTTP REQUEST HERE TO ADD USER TO DJANGO DATABASE
+        this.userService.registerUser(newProfile).subscribe(
+          data => {
+            console.log('Data: ' + data);
+          },
+          error => {
+            console.log('Error: ' + error);
+          }
+        )
+
 
       }else{
         alert("Please make sure passwords match")
