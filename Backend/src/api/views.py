@@ -54,6 +54,40 @@ def api_create_user(request, username):
 
     return Response({"message": "User Already Exists"})
 
+@api_view(['POST', ])
+def edit_user(request, user_id):
+    if request.user.is_authenticated:
+        try:
+            _profile = Profile.objects.filter(user_id = user_id)
+            _user = User.objects.get(id = user_id)
+
+        except User.DoesNotExist:
+            return Response("User ID Does Not Exist")
+        
+        # update django User model fields
+        _user.username = request.data['user']['username']
+        _user.set_password(request.data['user']['password']) # make sure password is actually different
+        _user.save()
+
+        return Response("Updated User")
+    else:
+        return Response("Could Not Edit User")
+
+@api_view(['GET', ])
+def is_online(request, user):
+    _user = User.objects.get(username = user)
+    try:
+        _token = Token.objects.get(user_id = _user.id)
+    except Token.DoesNotExist:
+        return Response("user isn't logged in")
+
+    return Response("user is logged in")
+
+
+# @api_view(['Post', ])
+# def change_password(request, user_id):
+
+
 @api_view(['GET', ])
 def api_get_user(request, username):
     if request.user.is_authenticated:
@@ -69,7 +103,6 @@ def api_get_user(request, username):
         return Response(serializer.data)
     else:
         return Response('whoooooooops')
-
 
 @api_view(['GET', ])
 def ProfileView(request, username):
@@ -145,6 +178,22 @@ def delete_auth_token(request):
         return Response("success", status=status.HTTP_202_ACCEPTED)
     else:
         return Response("login first !", status=status.HTTP_403_FORBIDDEN)
+
+@api_view(['POST', ])
+def delete_user(request, user_id):
+    if request.user.is_authenticated:
+        try:
+            _user = User.objects.get(id = user_id)
+        except User.DoesNotExist:
+            return Response("User ID Does Not Exist")
+
+        if _user.id == request.user.id:
+            _user.delete()
+            return Response("User Has Been Deleted")
+        else:
+            return Response("Unauthorized")
     
+    else:
+        return Response("Could Not Delete User")
 
 
