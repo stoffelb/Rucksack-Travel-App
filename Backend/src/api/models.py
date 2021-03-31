@@ -15,11 +15,11 @@ class Profile(models.Model):
         return self.user.username
 
 class TransportationTag(models.TextChoices):
-    CAR = 'CAR'
-    TRAIN = 'TRAIN'
-    PLANE = 'PLANE'
-    MOTORCYCLE = 'MOTORCYCLE'
-    BICYCLE = 'BICYCLE'
+    CAR = 'Car'
+    TRAIN = 'Train'
+    PLANE = 'Plane'
+    MOTORCYCLE = 'Motorcycle'
+    BICYCLE = 'Bicycle'
 
 class AccommodationTag(models.TextChoices):
     HOTEL = 'Hotel'
@@ -31,14 +31,18 @@ class Itinerary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500, default='')
-    budget = models.IntegerField()
-    duration_magnitude = models.IntegerField()
-    # location_tag = models.CharField(max_length=20, default='')
+    budget = models.IntegerField(default=0)
+    duration_magnitude = models.IntegerField(default=0)
+    location_tag = models.CharField(max_length=20, default='')
     transportation_tag = models.TextField(choices=TransportationTag.choices, default='')
     accommodation_tag = models.TextField(choices=AccommodationTag.choices, default='')
-    # tag = models.ForeignKey(Tag, on_delete=models.CASCADE, default=0)
+
     def str(self):
         return self.itinerary_title + self.user.username
+
+    def save(self, **kwargs):
+        self.location_tag = self.location_tag.lower()
+        return super(Itinerary, self).save( **kwargs)
 
 
 # function is needed to create an authentication token for each user

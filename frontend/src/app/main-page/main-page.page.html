@@ -23,9 +23,9 @@
         <label class="ion-float-right ">Duration: {{ item.duration_magnitude }}</label>
       </div>
       <div class="it-chips-div ion-float-left">
-        <ion-chip>Chip</ion-chip>
-        <ion-chip>Chippy</ion-chip>
-        <ion-chip>Chop</ion-chip>
+        <ion-chip>{{ item.location_tag }}</ion-chip>
+        <ion-chip>{{ item.accommodation_tag }}</ion-chip>
+        <ion-chip>{{ item.transportation_tag }}</ion-chip>
       </div>
       <div class="it-description-div ion-float-left">
         {{ item.content }}

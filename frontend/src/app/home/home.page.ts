@@ -38,6 +38,7 @@ export class HomePage {
       headers: headers,
       params: params,
     };
+    console.log(localStorage.getItem('sessionToken'));
 
     //call to user service login method
     this.userService.loginUser(data).subscribe(
