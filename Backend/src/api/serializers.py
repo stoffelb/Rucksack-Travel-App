@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ('username', 'password', 'first_name','last_name', 'email')
         
         def create(self, validated_data):
             user = User.objects.create_user(username = validated_data['username'], password = validated_data['password'])
@@ -18,7 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ('user', 'name', 'email')
+        fields = ('user', 'description')
 
 class ItinerarySerializer(serializers.ModelSerializer):
 
