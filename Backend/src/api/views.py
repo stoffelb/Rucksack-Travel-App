@@ -23,8 +23,6 @@ def api_create_user(request, username):
         # serialize User json data
         try:
             User.objects.get(email = request.data['user']['email'])
-        except MultipleObjectsReturned:
-            return Response({'message': 'email already exists'})
         except User.DoesNotExist:
             uSerializer = UserSerializer(data=request.data['user'])
 
@@ -55,6 +53,7 @@ def api_create_user(request, username):
                     print(pSerializer.errors)
                     return Response({'message':'not successful'})
 
+        return Response({"message": "Email Already Exists"})
     return Response({"message": "User Already Exists"})
 
 @api_view(['PUT', ])
@@ -81,7 +80,6 @@ def edit_user(request, user_id):
 # @api_view(['PUT', ])
 # def change_password(request, user_id):
 #     request.
-
 
 @api_view(['GET', ])
 def api_get_user(request, username):
