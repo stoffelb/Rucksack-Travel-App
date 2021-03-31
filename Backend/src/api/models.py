@@ -8,8 +8,7 @@ from rest_framework.authtoken.models import Token
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=0)
-    name = models.CharField(max_length=50, blank=True)
-    email = models.EmailField(max_length=254, default='')
+    description = models.TextField(max_length=500, default='')
 
     def str(self):  # unicode for Python 2
         return self.user.username
