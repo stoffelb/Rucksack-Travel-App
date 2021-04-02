@@ -32,7 +32,6 @@ export class MainPagePage implements OnInit {
     this.userService.globalItineraryList().subscribe(
       data => {
         this.items = [];
-        console.log("BEOFRE: " + this.items);
         //Loop through response data and set push each itinerary into the items list
         for(var element in data){
           console.log(data[element]);
@@ -48,7 +47,6 @@ export class MainPagePage implements OnInit {
         }
         // this.items = Object.keys(data).map(key => data[key])
       });
-      console.log("AFTER: " + this.items);
   }
 
 

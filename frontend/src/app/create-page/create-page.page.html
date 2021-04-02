@@ -22,6 +22,11 @@
       </ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label>Duration</ion-label>
+      <ion-input [(ngModel)]="duration" required="true" clearInput type="number" clearInput value="" placeholder="10 (days)"></ion-input>
+    </ion-item>
+
   <ion-item>
 
     <ion-label>Transport Method</ion-label>
@@ -57,10 +62,7 @@
       </ion-card-header>
 
       <ion-card-content>
-        <ion-textarea spellcheck="true" inputmode="text" color="medium"></ion-textarea>
-        <ion-card-content>
           <ion-textarea [(ngModel)]="description" spellcheck="true" inputmode="text" color="medium"></ion-textarea>
-        </ion-card-content>
       </ion-card-content>
 
     </ion-card>
