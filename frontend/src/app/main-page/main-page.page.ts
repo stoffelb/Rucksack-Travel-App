@@ -16,27 +16,23 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo ei
 })
 export class MainPagePage implements OnInit {
   items = [];
-  httpListener;
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject) {
-
-  }
+  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject) {}
 
   ngOnInit() {
-    this.getItineraryCards();
+    this.getItineraryList();
     this.userService.validateToken();
   }
 
   ionViewWillEnter(){
-    this.getItineraryCards();
+    this.getItineraryList();
   }
 
-
-  getItineraryCards(){
-    this.httpListener = this.userService.globalItineraryList().subscribe(
+  getItineraryList(){
+    this.userService.globalItineraryList().subscribe(
       data => {
         this.items = [];
-        console.log("before:" + this.items);
+        console.log("BEOFRE: " + this.items);
         //Loop through response data and set push each itinerary into the items list
         for(var element in data){
           console.log(data[element]);
@@ -50,23 +46,20 @@ export class MainPagePage implements OnInit {
             accommodation_tag: data[element].accommodation_tag
           });
         }
-        // this.items = Object.keys(data).map(key => data[key]);
-        console.log("after:" + this.items);
-      },
-      error => {
-        console.log('Error loading global data' + error);
-      })
+        // this.items = Object.keys(data).map(key => data[key])
+      });
+      console.log("AFTER: " + this.items);
   }
 
 
-  doRefresh(event) {    
-    this.httpListener.unsubscribe();
+  doRefresh(event) {
     console.log('Begin async operation');
-
+    
     setTimeout(() => {
       console.log('Async operation has ended');
-      event.target.complete()
-      this.getItineraryCards();
+      event.target.complete();
+      this.getItineraryList();
+      console.log(this.items)
     }, 2000);
   }
 
