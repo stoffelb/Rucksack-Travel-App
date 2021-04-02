@@ -16,15 +16,27 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo ei
 })
 export class MainPagePage implements OnInit {
   items = [];
+  httpListener;
 
   constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject) {
 
   }
 
   ngOnInit() {
-    this.userService.globalItineraryList().subscribe(
+    this.getItineraryCards();
+    this.userService.validateToken();
+  }
+
+  ionViewWillEnter(){
+    this.getItineraryCards();
+  }
+
+
+  getItineraryCards(){
+    this.httpListener = this.userService.globalItineraryList().subscribe(
       data => {
-        console.log(data);
+        this.items = [];
+        console.log("before:" + this.items);
         //Loop through response data and set push each itinerary into the items list
         for(var element in data){
           console.log(data[element]);
@@ -39,14 +51,23 @@ export class MainPagePage implements OnInit {
           });
         }
         // this.items = Object.keys(data).map(key => data[key]);
-
+        console.log("after:" + this.items);
       },
       error => {
         console.log('Error loading global data' + error);
-      }
-    );
+      })
+  }
 
-    this.userService.validateToken();
+
+  doRefresh(event) {    
+    this.httpListener.unsubscribe();
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete()
+      this.getItineraryCards();
+    }, 2000);
   }
 
 }
