@@ -61,7 +61,7 @@ export class UserService {
     let itinerary = {
       'title': title,
       'budget': budget,
-      'duration_magnitude': '0',
+      'duration_magnitude': duration,
       'description': description,
       'transportation_tag': transportation,
       'location_tag': location,
