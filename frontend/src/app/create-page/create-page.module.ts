@@ -8,13 +8,18 @@ import { CreatePagePageRoutingModule } from './create-page-routing.module';
 
 import { CreatePagePage } from './create-page.page';
 
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CreatePagePageRoutingModule
+    CreatePagePageRoutingModule,
+    GooglePlaceModule
   ],
   declarations: [CreatePagePage]
 })
-export class CreatePagePageModule {}
+export class CreatePagePageModule {
+
+}
