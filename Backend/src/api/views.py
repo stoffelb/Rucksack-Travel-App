@@ -81,6 +81,24 @@ def edit_user(request, user_id):
 # def change_password(request, user_id):
 #     request.
 
+@api_view(['PUT', ])
+def update_email(request, token):
+    if request.user.is_authenticated:
+        try:
+            User.objects.get(email= request.data['email'])
+        except User.DoesNotExist:
+            # email is acceptable (doesn't exist already)
+            _user = Token.objects.get(key = token).user
+            _user.email = request.data['email']
+            print(_user.email)
+            _user.save()
+            
+            return Response("Email updated!")
+
+        return Response("Email Already Exists")
+    else:
+        return Response(status = status.HTTP_401_UNAUTHORIZED)
+
 @api_view(['GET', ])
 def api_get_user(request, username):
     if request.user.is_authenticated:

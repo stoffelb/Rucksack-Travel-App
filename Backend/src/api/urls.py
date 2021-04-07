@@ -11,6 +11,7 @@ from .views import (
     MainPageView,
     delete_user,
     edit_user,
+    update_email,
 )
 
 # Wire up our API using automatic URL routing.
@@ -23,11 +24,13 @@ urlpatterns = [
     path('get_itinerary/<str:location_tag>',api_get_itinerary),
 
     #POST requests
-    path('user_create/<str:username>', api_create_user, name="create user"),
-    path('logout/', delete_auth_token, name="logout"),
+    path('user_create/<str:username>', api_create_user, name="create user"), 
+    path('logout/', delete_auth_token, name="logout"), 
     path('login/',  obtain_auth_token, ), 
     path('create_itinerary/', api_create_itinerary, name="create itinerary"),
     path('delete_user/<user_id>',  delete_user, ),
     path('edit_user/<user_id>',  edit_user, ),
 
+    #PUT requests
+    path('update_email/<token>',  update_email, ),
 ]
