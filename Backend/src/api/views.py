@@ -82,18 +82,22 @@ def edit_user(request, user_id):
 #     request.
 
 @api_view(['PUT', ])
-def update_email(request, token):
+def update_email(request, username):
     if request.user.is_authenticated:
         try:
             User.objects.get(email= request.data['email'])
         except User.DoesNotExist:
             # email is acceptable (doesn't exist already)
-            _user = Token.objects.get(key = token).user
-            _user.email = request.data['email']
-            print(_user.email)
-            _user.save()
+            _user = Token.objects.get(key = request.auth).user
             
-            return Response("Email updated!")
+            if username == _user.username:
+                _user.email = request.data['email']
+                print(_user.email)
+                _user.save()
+                return Response("Email updated!")
+            
+            
+            return Response("Username and token don't match!")
 
         return Response("Email Already Exists")
     else:

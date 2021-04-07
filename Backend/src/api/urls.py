@@ -32,5 +32,5 @@ urlpatterns = [
     path('edit_user/<user_id>',  edit_user, ),
 
     #PUT requests
-    path('update_email/<token>',  update_email, ),
+    path('update_email/<username>',  update_email, ),
 ]
