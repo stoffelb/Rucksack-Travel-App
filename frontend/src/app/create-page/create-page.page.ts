@@ -21,6 +21,8 @@ export class CreatePagePage implements OnInit {
   token: string = localStorage.getItem('sessionToken');
   duration: string;
 
+  formattedAddress = '';
+
 
   constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
 
@@ -51,5 +53,9 @@ export class CreatePagePage implements OnInit {
     this.accommodation = "";
     this.description = "";
   }
+
+  public handleAddressChange(address: any) {
+    this.location = address.formatted_address;
+}
 
 }

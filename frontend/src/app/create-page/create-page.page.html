@@ -13,7 +13,11 @@
 
     <ion-item>
       <ion-label>Destination</ion-label>
-      <ion-input [(ngModel)]="location" required="true" clearInput placeholder="Milwaukee"></ion-input>
+      <!-- <ion-input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" [(ngModel)]="location" required="true" clearInput placeholder="Milwaukee"></ion-input> -->
+      <br>
+      <br>
+      <br>
+      <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
     </ion-item>
 
     <ion-item>
