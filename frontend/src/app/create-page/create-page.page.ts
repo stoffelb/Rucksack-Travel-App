@@ -31,12 +31,25 @@ export class CreatePagePage implements OnInit {
     this.userService.createNewItinerary(this.token,this.title,this.location,this.budget,this.duration,this.accommodation,this.transportation,this.description).subscribe(
       data => {
         this.router.navigate(['./tabs/home-page']);
-        console.log('data: ' + data);
       },
       error => {
         console.log('Error: ' + error);
       }
     )
+  }
+
+  ionViewWillLeave(){
+    this.clearFields();
+  }
+
+  clearFields(){
+    this.title = "";
+    this.location = "";
+    this.budget = null;
+    this.duration = null;
+    this.transportation = "";
+    this.accommodation = "";
+    this.description = "";
   }
 
 }

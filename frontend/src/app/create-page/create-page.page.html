@@ -1,27 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Create Itinerary</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
-<section>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Create Itinerary</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+    <ion-item>
+      <ion-label>Title</ion-label>
+      <ion-input [(ngModel)]="title" required="true" clearInput placeholder="My Trip"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Destination</ion-label>
+      <ion-input [(ngModel)]="location" required="true" clearInput placeholder="Milwaukee"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Budget</ion-label>
+      <ion-input [(ngModel)]="budget" required="true" clearInput type="number" clearInput value="" placeholder="$100">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Duration</ion-label>
+      <ion-input [(ngModel)]="duration" required="true" clearInput type="number" clearInput value="" placeholder="10 (days)"></ion-input>
+    </ion-item>
+
   <ion-item>
-    <ion-label>Title</ion-label>
-    <ion-input [(ngModel)] = "title" required="true" clearInput placeholder="My Trip"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Destination</ion-label>
-    <ion-input [(ngModel)] = "location" required="true" clearInput placeholder="Milwaukee"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Budget</ion-label>
-    <ion-input [(ngModel)] = "budget" required="true" clearInput type="number" clearInput value="" placeholder="$100"></ion-input>
-  </ion-item>
-  <ion-item>
+
     <ion-label>Transport Method</ion-label>
-    <ion-select [(ngModel)] = "transportation" placeholder="Select One">
+    <ion-select [(ngModel)]="transportation" placeholder="Select One">
       <ion-select-option value="Car">Car</ion-select-option>
       <ion-select-option value="Train">Train</ion-select-option>
       <ion-select-option value="Plane">Plane</ion-select-option>
@@ -29,10 +38,13 @@
       <ion-select-option value="Bicycle">Bicycle</ion-select-option>
       <ion-select-option value="Other">Other</ion-select-option>
     </ion-select>
+
   </ion-item>
+
   <ion-item>
+
     <ion-label>Stay Method</ion-label>
-    <ion-select [(ngModel)] = "accommodation" placeholder="Select One">
+    <ion-select [(ngModel)]="accommodation" placeholder="Select One">
       <ion-select-option value="Condo">Condo</ion-select-option>
       <ion-select-option value="Hotel">Hotel</ion-select-option>
       <ion-select-option value="Hostel">Hostel</ion-select-option>
@@ -40,23 +52,21 @@
       <ion-select-option value="None">No Overnight</ion-select-option>
       <ion-select-option value="Other">Other</ion-select-option>
     </ion-select>
-  </ion-item>
-</section>
 
-  <section>
+  </ion-item>
+
     <ion-card>
+
       <ion-card-header>
         <ion-card-title>Description</ion-card-title>
       </ion-card-header>
 
-      <ion-card-content >
-        <ion-textarea [(ngModel)] = "description" spellcheck="true" inputmode="text" color="medium"></ion-textarea>
+      <ion-card-content>
+          <ion-textarea [(ngModel)]="description" spellcheck="true" inputmode="text" color="medium"></ion-textarea>
       </ion-card-content>
-    </ion-card>
-  </section>
 
-  <section>
-    <header></header>
+    </ion-card>
+
     <ion-button color="success" expand="block" (click)="onSaveItinerary()">Save Itinerary</ion-button>
-  </section>
+
 </ion-content>

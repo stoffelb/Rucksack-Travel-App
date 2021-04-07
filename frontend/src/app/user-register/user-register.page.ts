@@ -37,6 +37,7 @@ export class UserRegisterPage implements OnInit {
         this.userService.registerUser(newProfile).subscribe(
           data => {
             console.log('Data: ' + data);
+            this.router.navigate(['/tabs']);
           },
           error => {
             console.log('Error: ' + error);
