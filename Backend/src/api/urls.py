@@ -12,6 +12,7 @@ from .views import (
     delete_user,
     edit_user,
     update_email,
+    update_password,
 )
 
 # Wire up our API using automatic URL routing.
@@ -33,4 +34,5 @@ urlpatterns = [
 
     #PUT requests
     path('update_email/<username>',  update_email, ),
+    path('update_password/<username>',  update_password, ),
 ]

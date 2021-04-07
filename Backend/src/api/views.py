@@ -89,7 +89,7 @@ def update_email(request, username):
         except User.DoesNotExist:
             # email is acceptable (doesn't exist already)
             _user = Token.objects.get(key = request.auth).user
-            
+
             if username == _user.username:
                 _user.email = request.data['email']
                 print(_user.email)
@@ -102,6 +102,29 @@ def update_email(request, username):
         return Response("Email Already Exists")
     else:
         return Response(status = status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['PUT', ])
+def update_password(request, username):
+    if request.user.is_authenticated:
+        try:
+            User.objects.get(username= username)
+        except User.DoesNotExist:
+            return Response("User Doesn't exist")
+
+        
+        # user exists
+        _user = Token.objects.get(key = request.auth).user
+
+        if username == _user.username:
+            _user.set_password(request.data['password'])
+            _user.save()
+            return Response("password updated!")
+        
+        
+        return Response("Username and token don't match!")
+    else:
+        return Response(status = status.HTTP_401_UNAUTHORIZED)
+    
 
 @api_view(['GET', ])
 def api_get_user(request, username):
