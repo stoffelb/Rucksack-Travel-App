@@ -52,7 +52,7 @@ def api_create_user(request, username):
                 else:
                     # if unsuccessful, print errors
                     print(pSerializer.errors)
-                    return Response({'message':'not successful'})
+                    return Response({'message':'not successful'}, status= status.HTTP_406_NOT_ACCEPTABLE )
 
         return Response({"message": "Email Already Exists"})
     return Response({"message": "User Already Exists"})
@@ -153,7 +153,7 @@ def api_get_user(request, username):
 def ProfileView(request, username):
     if request.user.is_authenticated:
         _user = User.objects.get(username = username)
-        _profile = Profile.objects.get(user = _user)
+        _profile = Profile.objects.get(user = _user.id)
         #query profile, itinerarys, followers, etc. that are unique to the user/profile given
         context = []
         itineraries = []
@@ -189,6 +189,7 @@ def api_create_itinerary(request):
             newItinerary.save()
             return Response("success")
 
+        print(newItinerary.errors)
         return Response("ERROR")
     else:
         return Response("please login")
@@ -201,7 +202,7 @@ def api_get_itinerary(request, location_tag):
         _itineraryList = Itinerary.objects.filter(location_tag=location_tag)
     except Itinerary.DoesNotExist:
         # if Itinerary doesn't exist, return following response
-        return Response({"message": "Itinerary doesn't exist!"})
+        return Response({"message": "No Such Itineraries"})
     # serialize JSON object if a user with the specified Itinerary exists
     result_list = []
     for itinerary in _itineraryList:
