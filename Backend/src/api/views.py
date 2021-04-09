@@ -4,6 +4,7 @@ from .models import User, Profile, Itinerary
 from django.http import JsonResponse, Http404
 from django.core.exceptions import MultipleObjectsReturned
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.hashers import make_password, check_password
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -116,9 +117,12 @@ def update_password(request, username):
         _user = Token.objects.get(key = request.auth).user
 
         if username == _user.username:
-            _user.set_password(request.data['password'])
-            _user.save()
-            return Response("password updated!")
+            if check_password(request.data['password'],_user.password):
+                return Response("new password can't be the same as old password")
+            else:
+                _user.set_password(request.data['password'])
+                _user.save()
+                return Response("password updated!")
         
         
         return Response("Username and token don't match!")
