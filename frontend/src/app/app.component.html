@@ -1,6 +1,6 @@
 <ion-app>
 
-    <ion-menu menuId="main-menu" content-id="main">
+    <ion-menu side="start" menuId="main-menu" contentId="main">
       <ion-header>
         <ion-toolbar>
           <ion-title>Options</ion-title>
@@ -8,34 +8,77 @@
       </ion-header>
 
       <ion-content>
-        <ion-list>
-          <ion-menu-toggle>
 
-          <!--This router link can be changed later-->
-          <ion-item routerLink="/main-page">
-            <ion-icon name="search-outline" slot="start"></ion-icon>
-            <ion-label>Search</ion-label>
-          </ion-item>
+        <ion-menu-toggle>
+          <ion-list>
+            <ion-item routerLink="/home">
+              <ion-icon name="log-in-outline" slot="start"></ion-icon>
+              <ion-label>Login</ion-label>
+            </ion-item>
 
-          <ion-item routerLink="/home">
-            <ion-icon name="log-in-outline" slot="start"></ion-icon>
-            <ion-label>Login</ion-label>
-          </ion-item>
-
-          <ion-item routerLink="/user-register">
-            <ion-icon name="person-add-outline" slot="start"></ion-icon>
-            <ion-label>Register</ion-label>
-          </ion-item>
-
-          <!--This router link can be changed later-->
-          <ion-item routerLink="/main-page">
-            <ion-icon name="help-outline" slot="start"></ion-icon>
-            <ion-label>Help</ion-label>
-          </ion-item>
+            <ion-item routerLink="/user-register">
+              <ion-icon name="person-add-outline" slot="start"></ion-icon>
+              <ion-label>Register</ion-label>
+            </ion-item>
+          </ion-list>
         </ion-menu-toggle>
-        </ion-list>
+        
       </ion-content>
     </ion-menu>
+
+
+  <ion-menu side="end" menuId="filter-menu" contentId="main">
+    <ion-header>
+      <ion-toolbar color="tertiary">
+        <ion-title>Filter Results</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+
+        <ion-label>Destination</ion-label>
+        <ion-item>
+          <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+        </ion-item>
+
+        <ion-label>Budget</ion-label>
+        <ion-item>
+          <ion-input clearInput type="number" clearInput value="" placeholder="$100"></ion-input>
+        </ion-item>
+
+        <ion-label>Duration</ion-label>
+        <ion-item>
+          <ion-input clearInput type="number" clearInput value="" placeholder="10 (days)"></ion-input>
+        </ion-item>
+
+        <ion-label>Transportation Method</ion-label>
+        <ion-item>
+          <ion-select placeholder="Any">
+            <ion-select-option value="Car">Car</ion-select-option>
+            <ion-select-option value="Train">Train</ion-select-option>
+            <ion-select-option value="Plane">Plane</ion-select-option>
+            <ion-select-option value="Motorcycle">Motorcycle</ion-select-option>
+            <ion-select-option value="Bicycle">Bicycle</ion-select-option>
+            <ion-select-option value="Other">Other</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-label>Stay Method</ion-label>
+        <ion-item>
+          <ion-select placeholder="Any">
+            <ion-select-option value="Condo">Condo</ion-select-option>
+            <ion-select-option value="Hotel">Hotel</ion-select-option>
+            <ion-select-option value="Hostel">Hostel</ion-select-option>
+            <ion-select-option value="Camp">Camp</ion-select-option>
+            <ion-select-option value="None">No Overnight</ion-select-option>
+            <ion-select-option value="Other">Other</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="full" color="success" (click)="applyFilter()">Apply</ion-button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
 
   <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

@@ -60,5 +60,4 @@ export class MainPagePage implements OnInit {
       console.log(this.items)
     }, 2000);
   }
-
 }

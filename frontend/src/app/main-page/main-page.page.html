@@ -1,11 +1,21 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-toggle menu="main-menu">
+				<ion-button>
+					<ion-icon name="menu" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ion-menu-toggle>
+    </ion-buttons>
+
     <ion-title>Feed</ion-title>
 
-    <!--Just add these 3 lines to any HTML page and it will have the same menu set up-->
-    <!--We can add different menus for when you're logged in vs. out as well in app.component.html-->
-    <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
+    <ion-buttons slot="end">
+      <ion-menu-toggle menu="filter-menu">
+				<ion-button>
+					<ion-icon name="filter-circle-outline" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ion-menu-toggle>
     </ion-buttons>
 
   </ion-toolbar>
