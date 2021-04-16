@@ -43,17 +43,17 @@
 
         <ion-label>Budget</ion-label>
         <ion-item>
-          <ion-input clearInput type="number" clearInput value="" placeholder="$100"></ion-input>
+          <ion-input [(ngModel)]="budget" clearInput type="number" clearInput value="" placeholder="$100"></ion-input>
         </ion-item>
 
         <ion-label>Duration</ion-label>
         <ion-item>
-          <ion-input clearInput type="number" clearInput value="" placeholder="10 (days)"></ion-input>
+          <ion-input [(ngModel)]="duration" clearInput type="number" clearInput value="" placeholder="10 (days)"></ion-input>
         </ion-item>
 
         <ion-label>Transportation Method</ion-label>
         <ion-item>
-          <ion-select placeholder="Any">
+          <ion-select [(ngModel)]="transportation" placeholder="Any">
             <ion-select-option value="Car">Car</ion-select-option>
             <ion-select-option value="Train">Train</ion-select-option>
             <ion-select-option value="Plane">Plane</ion-select-option>
@@ -65,7 +65,7 @@
 
         <ion-label>Stay Method</ion-label>
         <ion-item>
-          <ion-select placeholder="Any">
+          <ion-select [(ngModel)]="accommodation" placeholder="Any">
             <ion-select-option value="Condo">Condo</ion-select-option>
             <ion-select-option value="Hotel">Hotel</ion-select-option>
             <ion-select-option value="Hostel">Hostel</ion-select-option>
@@ -74,8 +74,8 @@
             <ion-select-option value="Other">Other</ion-select-option>
           </ion-select>
         </ion-item>
-
         <ion-button expand="full" color="success" (click)="applyFilter()">Apply</ion-button>
+        
       </ion-list>
     </ion-content>
   </ion-menu>

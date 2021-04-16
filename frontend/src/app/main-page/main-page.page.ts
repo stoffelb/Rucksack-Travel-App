@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams, JsonpClientBackend } from '@angular/common/http';
 import { UserService } from '../user.services';
 import { ItineraryObject } from '../ItineraryObject';
-
+import {ApplyFilterEventService} from '../apply-filter-event.service'
 
 const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
@@ -17,15 +17,21 @@ const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo ei
 export class MainPagePage implements OnInit {
   items = [];
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject) {}
+  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject, private event: ApplyFilterEventService) {}
 
   ngOnInit() {
     this.getItineraryList();
     this.userService.validateToken();
+
+    // Listening for apply filter event
+    this.event.getObservable().subscribe((data) => {
+      this.applyFilter(data);
+    })
   }
 
   ionViewWillEnter(){
     this.getItineraryList();
+    
   }
 
   getItineraryList(){
@@ -34,7 +40,6 @@ export class MainPagePage implements OnInit {
         this.items = [];
         //Loop through response data and set push each itinerary into the items list
         for(var element in data){
-          console.log(data[element]);
           this.items.push({
             name: data[element].title,
             duration_magnitude: data[element].duration_magnitude,
@@ -59,5 +64,11 @@ export class MainPagePage implements OnInit {
       this.getItineraryList();
       console.log(this.items)
     }, 2000);
+  }
+
+  // Use data sent in from app.component.ts (the filter) to filter data
+  applyFilter(data){
+    console.log("Filtering data with the following filters: ");
+    console.log(data);
   }
 }
