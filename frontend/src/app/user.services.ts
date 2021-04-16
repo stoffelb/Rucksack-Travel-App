@@ -79,4 +79,15 @@ export class UserService {
     return
   }
 
+  filteredItineraryList(filters): Observable<any>{
+    let filterList = {
+      'budget': filters.budget,
+      'duration': filters.duration,
+      'transportation': filters.transportation,
+      'location': filters.location,
+      'accommodation': filters.accommodation,
+    };
+    return this.http.post('http://localhost:8000/api/get_itinerary/', filterList);
+  }
+
 }

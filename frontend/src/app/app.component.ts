@@ -12,17 +12,17 @@ import { MenuController } from '@ionic/angular';
 })
 export class AppComponent {
 
-  location: string;
-  budget: string;
-  transportation: string;
-  accommodation: string;
-  duration: string;
+  location: string = null;
+  budget: string = null;
+  transportation: string = null;
+  accommodation: string = null;
+  duration: string = null;
   params: any;
   foo: any;
   formattedAddress = '';
   event: ApplyFilterEventService;
 
-  constructor(private router: Router, public navCtrl: NavController, event: ApplyFilterEventService, private menu: MenuController) {  
+  constructor(private router: Router, public navCtrl: NavController, event: ApplyFilterEventService, private menu: MenuController) {
     this.event = event;
   }
 
@@ -33,15 +33,15 @@ export class AppComponent {
   applyFilter(){
 
     this.closeFilter();
-    
+
     console.log("apply filter button clicked");
 
     this.params = {
-      "filter_location": this.location,
-      "filter_budget": this.budget,
-      "filter_transportation": this.transportation,
-      "filter_accommodation": this.accommodation,
-      "filter_duration": this.duration
+      "location": this.location,
+      "budget": this.budget,
+      "transportation": this.transportation,
+      "accommodation": this.accommodation,
+      "duration": this.duration
     }
 
     this.event.publishSomeData(this.params);
