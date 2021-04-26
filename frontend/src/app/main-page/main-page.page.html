@@ -12,7 +12,29 @@
 
   </ion-toolbar>
 </ion-header>
-  <ion-searchbar #place (keyUp.enter)="simpleSearch(place.value)"> </ion-searchbar>
+<ion-toolbar>
+  <ion-searchbar #simpSearch (ionInput)="displaySearchOptions($event)" (keyUp.enter)="simpleSearch(simpSearch.value)" (ionClear)="clearSearch($event)"> </ion-searchbar>
+  <ion-grid [hidden]="hideSearchOpts">
+    <ion-row>
+      <ion-col>
+        <ion-button [hidden]="hideSearchOpts" (click)="displayProfileList()">
+          People
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [hidden]="hideSearchOpts" (click)="displayTitleList()">
+          Titles
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [hidden]="hideSearchOpts">
+          Places
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>
+
   <!-- <ion-searchbar (ionInput)="simpleSearch($event)"> </ion-searchbar> -->
 
 <ion-content>
@@ -24,16 +46,22 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-
-  <ion-virtual-scroll [items]="items" approxItemHeight="320px">
+  <ion-virtual-scroll [items]="items" approxItemHeight="320px" [hidden]="hideProfileList">
     <ion-card *virtualItem="let item; let itemBounds = bounds;">
+      <ion-card-header>
+        <ion-card-title>{{ item.name }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </ion-virtual-scroll>
+  <ion-virtual-scroll [items]="items" approxItemHeight="320px" [hidden]="hideTitleList">
+    <ion-card *virtualItem="let item; let itemBounds = bounds;" >
     <ion-card-header>
       <ion-card-title>{{ item.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <div class="it-budget-duration-div">
         <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
-        <label class="ion-float-right ">Duration: {{ item.duration_magnitude }}</label>
+        <label class="ion-float-right ">Duration: {{ item.duration_magnitude }} {{item.duration_unit}}</label>
       </div>
       <div class="it-chips-div ion-float-left">
         <ion-chip>{{ item.location_tag }}</ion-chip>
@@ -48,6 +76,7 @@
     </ion-card-content>
     </ion-card>
   </ion-virtual-scroll>
+
 
 </ion-content>
 

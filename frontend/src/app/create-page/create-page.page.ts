@@ -20,6 +20,7 @@ export class CreatePagePage implements OnInit {
   username: string = localStorage.getItem('username');
   token: string = localStorage.getItem('sessionToken');
   duration: string;
+  duration_unit: string;
 
   formattedAddress = '';
 

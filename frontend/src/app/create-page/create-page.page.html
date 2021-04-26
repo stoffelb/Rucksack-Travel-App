@@ -31,6 +31,15 @@
       <ion-input [(ngModel)]="duration" required="true" clearInput type="number" clearInput value="" placeholder="10 (days)"></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label>Duration Unit</ion-label>
+      <ion-select [(ngModel)]="duration_unit" placeholder="Select One">
+        <ion-select-option value="Days">Days</ion-select-option>
+        <ion-select-option value="Weeks">Weeks</ion-select-option>
+        <ion-select-option value="Months">Months</ion-select-option>
+      </ion-select>
+    </ion-item>
+
   <ion-item>
 
     <ion-label>Transport Method</ion-label>

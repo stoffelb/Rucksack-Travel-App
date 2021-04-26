@@ -17,9 +17,14 @@ export class MainPagePage implements OnInit {
   transportation: string = null;
   accommodation: string = null;
   duration: string = null;
+  hideSearchOpts = true;
   items = [];
   filterOn: boolean;
   filters: {};
+  profileSearch = false;
+  titleSearch = false;
+  hideProfileList = true;
+  hideTitleList =  false;
 
 
   constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject, private event: ApplyFilterEventService) {}
@@ -91,24 +96,37 @@ export class MainPagePage implements OnInit {
     console.log(data);
   }
 
-    simpleSearch(place: string){
-      console.log("Simple Search input: " + place);
-      this.userService.simpleSearchList(place).subscribe(
+    //Display the list of users if there is an @ sign and if not display itinerary list
+    simpleSearch(simpSearch: string){
+      console.log("Simple Search input: " + simpSearch);
+      this.userService.simpleSearchList(simpSearch).subscribe(
         data => {
           console.log(data);
           console.log(data[1]);
-          var searchedList = data[1];
+          var searchedList;
           this.items = [];
-          for(var element in searchedList){
-            this.items.push({
-              name: searchedList[element].title,
-              duration_magnitude: searchedList[element].duration_magnitude,
-              budget: searchedList[element].budget,
-              location_tag: searchedList[element].location_tag,
-              content: searchedList[element].description,
-              transportation_tag: searchedList[element].transportation_tag,
-              accommodation_tag: searchedList[element].accommodation_tag
-            });
+
+          if(this.profileSearch){
+            searchedList = data[0];
+            for(var element in searchedList){
+              this.items.push({
+                name: searchedList[element].username
+              });
+            }
+          }
+          else if(this.titleSearch){
+            searchedList = data[1];
+            for(var element in searchedList){
+              this.items.push({
+                name: searchedList[element].title,
+                duration_magnitude: searchedList[element].duration_magnitude,
+                budget: searchedList[element].budget,
+                location_tag: searchedList[element].location_tag,
+                content: searchedList[element].description,
+                transportation_tag: searchedList[element].transportation_tag,
+                accommodation_tag: searchedList[element].accommodation_tag
+              });
+            }
           }
         },
         error => {
@@ -117,4 +135,31 @@ export class MainPagePage implements OnInit {
       );
     }
 
+    displaySearchOptions(event){
+      // var elements = document.getElementsByClassName("searchOpt");
+      this.hideSearchOpts = false;
+    }
+
+    clearSearch(event){
+      this.hideSearchOpts = true;
+      this.hideProfileList = true;
+      this.getFilteredItineraryList(this.filters);
+    }
+
+    displayProfileList(){
+
+      this.hideProfileList = false;
+      this.profileSearch = true;
+      this.hideTitleList = true;
+      this.titleSearch = false;
+
+    }
+
+    displayTitleList(){
+
+      this.hideTitleList = false;
+      this.titleSearch = true;
+      this.hideProfileList = true;
+      this.profileSearch = false;
+    }
 }
