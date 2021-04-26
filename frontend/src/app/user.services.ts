@@ -8,27 +8,6 @@ export class UserService {
 
   constructor(private http: HttpClient){ }
 
-  validateToken(){
-    // var sessionKey;
-    // this.http.post('http://localhost:8000/api/login/', {'username'}, {responseType: 'json'}).subscribe(
-    //   response => {
-    //     sessionKey = response;
-    //     if(JSON.stringify(sessionKey) === localStorage.getItem('sessionKey')){
-    //       console.log("Token is valid");
-    //     }
-    //     else{
-    //       console.log("Token is invlaid");
-    //     }
-    //     console.log(sessionKey);
-    //   },
-    //   error => {
-    //     console.log("Error validating token");
-    //   }
-    // );
-    // console.log(sessionKey);
-
-  }
-
   loginUser(userData): Observable<any>{
     return this.http.post('http://localhost:8000/api/login/', userData, {responseType: 'json'});
   }
@@ -39,10 +18,6 @@ export class UserService {
       'Authorization': 'Token ' + token,
     });
     return this.http.post('http://localhost:8000/api/logout/', null, {headers: headers});
-  }
-
-  globalItineraryList(): Observable<any>{
-    return this.http.get('http://localhost:8000/api/home_view/')
   }
 
   getUserProfile(token,username): Observable<any>{
@@ -87,7 +62,11 @@ export class UserService {
       'location': filters.location,
       'accommodation': filters.accommodation,
     };
-    return this.http.post('http://localhost:8000/api/get_itinerary/', filterList);
+    return this.http.post('http://localhost:8000/api/filter_view/', filterList);
+  }
+
+  simpleSearchList(searchValue): Observable<any>{
+    return this.http.get("http://localhost:8000/api/quick_search/" + searchValue);
   }
 
 }

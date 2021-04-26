@@ -1,32 +1,5 @@
 <ion-app>
 
-    <ion-menu side="start" menuId="main-menu" contentId="main">
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Options</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <ion-content>
-
-        <ion-menu-toggle>
-          <ion-list>
-            <ion-item routerLink="/home">
-              <ion-icon name="log-in-outline" slot="start"></ion-icon>
-              <ion-label>Login</ion-label>
-            </ion-item>
-
-            <ion-item routerLink="/user-register">
-              <ion-icon name="person-add-outline" slot="start"></ion-icon>
-              <ion-label>Register</ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-menu-toggle>
-
-      </ion-content>
-    </ion-menu>
-
-
   <ion-menu side="end" menuId="filter-menu" contentId="main">
     <ion-header>
       <ion-toolbar color="tertiary">
@@ -38,7 +11,7 @@
 
         <ion-label>Destination</ion-label>
         <ion-item>
-          <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+          <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" clearInput/>
         </ion-item>
 
         <ion-label>Budget</ion-label>
@@ -75,6 +48,7 @@
           </ion-select>
         </ion-item>
         <ion-button expand="full" color="success" (click)="applyFilter()">Apply</ion-button>
+        <ion-button expand="full" color="danger" (click)="clearFilter()">Clear</ion-button>
 
       </ion-list>
     </ion-content>

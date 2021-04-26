@@ -19,7 +19,7 @@ export class AppComponent {
   duration: string = null;
   params: any;
   foo: any;
-  formattedAddress = '';
+  formattedAddress = null;
   event: ApplyFilterEventService;
 
   constructor(private router: Router, public navCtrl: NavController, event: ApplyFilterEventService, private menu: MenuController) {
@@ -42,6 +42,28 @@ export class AppComponent {
       "transportation": this.transportation,
       "accommodation": this.accommodation,
       "duration": this.duration
+    }
+
+    this.event.publishSomeData(this.params);
+  }
+
+  clearFilter(){
+    this.closeFilter();
+
+    console.log("apply filter button clicked");
+
+    this.location = null;
+    this.budget = null;
+    this.transportation = null;
+    this.accommodation = null;
+    this.duration = null;
+
+    this.params = {
+      "location": null,
+      "budget": null,
+      "transportation": null,
+      "accommodation": null,
+      "duration": null
     }
 
     this.event.publishSomeData(this.params);

@@ -12,10 +12,6 @@ const routes: Routes = [
         loadChildren: () => import('../create-page/create-page.module').then(m => m.CreatePagePageModule)
       },
       {
-        path: 'explore-page',
-        loadChildren: () => import('../explore-page/explore-page.module').then(m => m.ExplorePagePageModule)
-      },
-      {
         path: 'profile-page',
         loadChildren: () => import('../profile-page/profile-page.module').then(m => m.ProfilePagePageModule)
       },

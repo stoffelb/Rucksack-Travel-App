@@ -12,15 +12,28 @@ import {ApplyFilterEventService} from '../apply-filter-event.service'
   providers: [UserService, ItineraryObject],
 })
 export class MainPagePage implements OnInit {
+  location: string = null;
+  budget: string = null;
+  transportation: string = null;
+  accommodation: string = null;
+  duration: string = null;
   items = [];
   filterOn: boolean;
   filters: {};
 
+
   constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject, private event: ApplyFilterEventService) {}
 
   ngOnInit() {
-    this.getItineraryList();
-    this.userService.validateToken();
+    this.filters = {
+      "location": this.location,
+      "budget": this.budget,
+      "transportation": this.transportation,
+      "accommodation": this.accommodation,
+      "duration": this.duration
+    };
+    console.log(this.filters);
+    this.getFilteredItineraryList(this.filters);
 
     // Listening for apply filter event
     this.event.getObservable().subscribe((data) => {
@@ -29,29 +42,10 @@ export class MainPagePage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.getItineraryList();
-
+    console.log(this.filters);
+    this.getFilteredItineraryList(this.filters);
   }
 
-  getItineraryList(){
-    this.userService.globalItineraryList().subscribe(
-      data => {
-        this.items = [];
-        //Loop through response data and set push each itinerary into the items list
-        for(var element in data){
-          this.items.push({
-            name: data[element].title,
-            duration_magnitude: data[element].duration_magnitude,
-            budget: data[element].budget,
-            location_tag: data[element].location_tag,
-            content: data[element].description,
-            transportation_tag: data[element].transportation_tag,
-            accommodation_tag: data[element].accommodation_tag
-          });
-        }
-        // this.items = Object.keys(data).map(key => data[key])
-      });
-  }
 
   getFilteredItineraryList(filters){
     console.log(filters);
@@ -83,12 +77,7 @@ export class MainPagePage implements OnInit {
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
-      if(this.filterOn){
-        this.getFilteredItineraryList(this.filters);
-      }
-      else{
-        this.getItineraryList();
-      }
+      this.getFilteredItineraryList(this.filters);
       console.log(this.items)
     }, 2000);
   }
@@ -102,5 +91,30 @@ export class MainPagePage implements OnInit {
     console.log(data);
   }
 
+    simpleSearch(place: string){
+      console.log("Simple Search input: " + place);
+      this.userService.simpleSearchList(place).subscribe(
+        data => {
+          console.log(data);
+          console.log(data[1]);
+          var searchedList = data[1];
+          this.items = [];
+          for(var element in searchedList){
+            this.items.push({
+              name: searchedList[element].title,
+              duration_magnitude: searchedList[element].duration_magnitude,
+              budget: searchedList[element].budget,
+              location_tag: searchedList[element].location_tag,
+              content: searchedList[element].description,
+              transportation_tag: searchedList[element].transportation_tag,
+              accommodation_tag: searchedList[element].accommodation_tag
+            });
+          }
+        },
+        error => {
+          console.log("Error: " + error);
+        }
+      );
+    }
 
 }
