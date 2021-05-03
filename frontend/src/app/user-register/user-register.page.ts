@@ -29,9 +29,15 @@ export class UserRegisterPage implements OnInit {
       if(this.user_password === this.user_password_confirm){
         //create new user profile object to pass into http request
         var newProfile = {
-          'user': {'username': this.user_name, 'password': this.user_password},
-          'name': this.first_name + "" + this.last_name,
-          'email': this.email
+          'user': {
+            'username': this.user_name,
+            'password': this.user_password,
+            'first_name': this.first_name,
+            'last_name': this.last_name,
+            'email': this.email
+          },
+          'description': ""
+
         };
         //START HTTP REQUEST HERE TO ADD USER TO DJANGO DATABASE
         this.userService.registerUser(newProfile).subscribe(

@@ -2,7 +2,7 @@
 
   <ion-menu side="end" menuId="filter-menu" contentId="main">
     <ion-header>
-      <ion-toolbar color="tertiary">
+      <ion-toolbar color="medium">
         <ion-title>Filter Results</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -47,8 +47,17 @@
             <ion-select-option value="Other">Other</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-button expand="full" color="success" (click)="applyFilter()">Apply</ion-button>
-        <ion-button expand="full" color="danger" (click)="clearFilter()">Clear</ion-button>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col width-100 style="text-align: left">
+              <ion-button color="earthygreen" (click)="applyFilter()">Apply</ion-button>
+            </ion-col>
+            <ion-col width-100 style="text-align: right">
+            <ion-button color="darkred" (click)="clearFilter()">Clear</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
       </ion-list>
     </ion-content>

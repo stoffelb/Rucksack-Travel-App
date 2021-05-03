@@ -5,7 +5,7 @@
     <ion-buttons slot="end">
       <ion-menu-toggle menu="filter-menu">
 				<ion-button>
-					<ion-icon name="filter-circle-outline" slot="icon-only"></ion-icon>
+					<ion-icon color="ruckbrown" name="filter-circle-outline" slot="icon-only"></ion-icon>
 				</ion-button>
 			</ion-menu-toggle>
     </ion-buttons>
@@ -13,22 +13,22 @@
   </ion-toolbar>
 </ion-header>
 <ion-toolbar>
-  <ion-searchbar #simpSearch (ionInput)="displaySearchOptions($event)" (keyUp.enter)="simpleSearch(simpSearch.value)" (ionClear)="clearSearch($event)"> </ion-searchbar>
-  <ion-grid [hidden]="hideSearchOpts">
+  <ion-searchbar #simpSearch (keyUp.enter)="simpleSearch(simpSearch.value)" (ionClear)="clearSearch($event)"> </ion-searchbar>
+  <ion-grid>
     <ion-row>
-      <ion-col>
-        <ion-button [hidden]="hideSearchOpts" (click)="displayProfileList()">
+      <ion-col width-50 style="text-align: left">
+          <ion-button color="ruckbrown" (click)="displayPlacesList()">
+            Places
+          </ion-button>
+      </ion-col>
+      <ion-col width-50 style="text-align: center">
+        <ion-button color="ruckbrown" (click)="displayProfileList()">
           People
         </ion-button>
       </ion-col>
-      <ion-col>
-        <ion-button [hidden]="hideSearchOpts" (click)="displayTitleList()">
+      <ion-col width-50 style="text-align: right">
+        <ion-button color="ruckbrown" (click)="displayTitleList()">
           Titles
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button [hidden]="hideSearchOpts">
-          Places
         </ion-button>
       </ion-col>
     </ion-row>
@@ -53,7 +53,32 @@
       </ion-card-header>
     </ion-card>
   </ion-virtual-scroll>
+
   <ion-virtual-scroll [items]="items" approxItemHeight="320px" [hidden]="hideTitleList">
+    <ion-card *virtualItem="let item; let itemBounds = bounds;" >
+    <ion-card-header>
+      <ion-card-title>{{ item.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="it-budget-duration-div">
+        <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
+        <label class="ion-float-right ">Duration: {{ item.duration_magnitude }} {{item.duration_unit}}</label>
+      </div>
+      <div class="it-chips-div ion-float-left">
+        <ion-chip>{{ item.location_tag }}</ion-chip>
+        <ion-chip>{{ item.accommodation_tag }}</ion-chip>
+        <ion-chip>{{ item.transportation_tag }}</ion-chip>
+      </div>
+      <div class="it-description-div ion-float-left">
+        <ion-item text-wrap style="font-size: 1em">
+          {{ item.content }}
+        </ion-item>
+      </div>
+    </ion-card-content>
+    </ion-card>
+  </ion-virtual-scroll>
+
+  <ion-virtual-scroll [items]="items" approxItemHeight="320px" [hidden]="hidePlacesList">
     <ion-card *virtualItem="let item; let itemBounds = bounds;" >
     <ion-card-header>
       <ion-card-title>{{ item.name }}</ion-card-title>

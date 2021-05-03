@@ -17,7 +17,6 @@ export class MainPagePage implements OnInit {
   transportation: string = null;
   accommodation: string = null;
   duration: string = null;
-  hideSearchOpts = true;
   items = [];
   filterOn: boolean;
   filters: {};
@@ -25,6 +24,8 @@ export class MainPagePage implements OnInit {
   titleSearch = false;
   hideProfileList = true;
   hideTitleList =  false;
+  hidePlacesList = false;
+  placesSearch = true;
 
 
   constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject, private event: ApplyFilterEventService) {}
@@ -128,6 +129,20 @@ export class MainPagePage implements OnInit {
               });
             }
           }
+          else if(this.placesSearch){
+            searchedList = data[2];
+            for(var element in searchedList){
+              this.items.push({
+                name: searchedList[element].title,
+                duration_magnitude: searchedList[element].duration_magnitude,
+                budget: searchedList[element].budget,
+                location_tag: searchedList[element].location_tag,
+                content: searchedList[element].description,
+                transportation_tag: searchedList[element].transportation_tag,
+                accommodation_tag: searchedList[element].accommodation_tag
+              });
+            }
+          }
         },
         error => {
           console.log("Error: " + error);
@@ -137,11 +152,9 @@ export class MainPagePage implements OnInit {
 
     displaySearchOptions(event){
       // var elements = document.getElementsByClassName("searchOpt");
-      this.hideSearchOpts = false;
     }
 
     clearSearch(event){
-      this.hideSearchOpts = true;
       this.hideProfileList = true;
       this.getFilteredItineraryList(this.filters);
     }
@@ -150,15 +163,33 @@ export class MainPagePage implements OnInit {
 
       this.hideProfileList = false;
       this.profileSearch = true;
+
       this.hideTitleList = true;
       this.titleSearch = false;
 
+      this.hidePlacesList = true;
+      this.placesSearch = false;
     }
 
     displayTitleList(){
 
       this.hideTitleList = false;
       this.titleSearch = true;
+
+      this.hideProfileList = true;
+      this.profileSearch = false;
+
+      this.hidePlacesList = true;
+      this.placesSearch = false;
+    }
+
+    displayPlacesList(){
+      this.hidePlacesList = false;
+      this.placesSearch = true;
+
+      this.hideTitleList = true;
+      this.titleSearch = false;
+
       this.hideProfileList = true;
       this.profileSearch = false;
     }

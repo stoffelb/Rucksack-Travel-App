@@ -24,3 +24,67 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+:root {
+  --ion-color-ruckbrown: #b2a481;
+  --ion-color-ruckbrown-rgb: 178,164,129;
+  --ion-color-ruckbrown-contrast: #000000;
+  --ion-color-ruckbrown-contrast-rgb: 0,0,0;
+  --ion-color-ruckbrown-shade: #9d9072;
+  --ion-color-ruckbrown-tint: #baad8e;
+}
+
+.ion-color-ruckbrown {
+  --ion-color-base: var(--ion-color-ruckbrown);
+  --ion-color-base-rgb: var(--ion-color-ruckbrown-rgb);
+  --ion-color-contrast: var(--ion-color-ruckbrown-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-ruckbrown-contrast-rgb);
+  --ion-color-shade: var(--ion-color-ruckbrown-shade);
+  --ion-color-tint: var(--ion-color-ruckbrown-tint);
+}
+
+:root {
+  --ion-color-earthygreen: #477529;
+  --ion-color-earthygreen-rgb: 71,117,41;
+  --ion-color-earthygreen-contrast: #ffffff;
+  --ion-color-earthygreen-contrast-rgb: 255,255,255;
+  --ion-color-earthygreen-shade: #3e6724;
+  --ion-color-earthygreen-tint: #59833e;
+}
+
+.ion-color-earthygreen {
+  --ion-color-base: var(--ion-color-earthygreen);
+  --ion-color-base-rgb: var(--ion-color-earthygreen-rgb);
+  --ion-color-contrast: var(--ion-color-earthygreen-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-earthygreen-contrast-rgb);
+  --ion-color-shade: var(--ion-color-earthygreen-shade);
+  --ion-color-tint: var(--ion-color-earthygreen-tint);
+}
+
+:root {
+  --ion-color-darkred: #a71b29;
+  --ion-color-darkred-rgb: 167,27,41;
+  --ion-color-darkred-contrast: #ffffff;
+  --ion-color-darkred-contrast-rgb: 255,255,255;
+  --ion-color-darkred-shade: #931824;
+  --ion-color-darkred-tint: #b0323e;
+}
+
+.ion-color-darkred {
+  --ion-color-base: var(--ion-color-darkred);
+  --ion-color-base-rgb: var(--ion-color-darkred-rgb);
+  --ion-color-contrast: var(--ion-color-darkred-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-darkred-contrast-rgb);
+  --ion-color-shade: var(--ion-color-darkred-shade);
+  --ion-color-tint: var(--ion-color-darkred-tint);
+}
+
+
+
+.tabs-md .tab-button[aria-selected=true] {
+  background: #b2a481 !important;
+}
+
+.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+  color: #b2a481 !important;
+}

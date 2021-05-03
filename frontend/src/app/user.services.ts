@@ -50,8 +50,9 @@ export class UserService {
     return this.http.post('http://localhost:8000/api/user_create/' + userData.user.username, userData);
   }
 
-  forgotPasswordUser(userData): Observable<any>{
-    return
+  forgotPasswordUser(password): Observable<any>{
+    var username = localStorage.getItem('username');
+    return this.http.put('http://localhost:8000/api/update_password/' + username, password)
   }
 
   filteredItineraryList(filters): Observable<any>{
