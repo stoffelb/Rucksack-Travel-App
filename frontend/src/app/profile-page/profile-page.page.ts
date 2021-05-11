@@ -15,13 +15,16 @@ export class ProfilePagePage implements OnInit {
   name: string;
   user: User;
   email: string;
-  username: string = localStorage.getItem('username');
+  username: string;
   token: string = localStorage.getItem('sessionToken');
 
   constructor(private http: HttpClient, private router: Router, private userService: UserService) {
-
+    console.log("Username: ", localStorage.getItem('username'));
     var url: string = 'http://localhost:8000/api/' + localStorage.getItem('username');
+  }
 
+  ionViewWillEnter(){
+    this.username = localStorage.getItem('username');
   }
 
   ngOnInit() {
@@ -64,6 +67,8 @@ export class ProfilePagePage implements OnInit {
     this.userService.logoutUser(token).subscribe(
       data => {
         console.log('User logged out ' + data);
+        localStorage.clear();
+        console.log("Local storage cleared");
       },
       error => {
         console.log('Error: ' + error)
