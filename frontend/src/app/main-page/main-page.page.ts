@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams, JsonpClientBackend } from '@angula
 import { UserService } from '../user.services';
 import { ItineraryObject } from '../ItineraryObject';
 import {ApplyFilterEventService} from '../apply-filter-event.service'
+import { createOfflineCompileUrlResolver } from '@angular/compiler';
 
 @Component({
   selector: 'app-main-page',
@@ -17,18 +18,25 @@ export class MainPagePage implements OnInit {
   transportation: string = null;
   accommodation: string = null;
   duration: string = null;
+  hideSearchOpts = true;
+  peopleItems = [];
+  placesItems = [];
+  titlesItems = [];
   items = [];
   filterOn: boolean;
   filters: {};
-  profileSearch = false;
-  titleSearch = false;
-  hideProfileList = true;
-  hideTitleList =  false;
-  hidePlacesList = false;
-  placesSearch = true;
 
+  // People, places, titles tabs
+  private showPlacesTab = true;
+  private showPlacesTabNoResults = false;
+  private showPeopleTab = false;
+  private showPeopleTabNoResults = false;
+  private showTitlesTab = false;
+  private showTitlesTabNoResults = false;
+  private tabState;
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject, private event: ApplyFilterEventService) {}
+  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject, private event: ApplyFilterEventService) {
+  }
 
   ngOnInit() {
     this.filters = {
@@ -45,11 +53,123 @@ export class MainPagePage implements OnInit {
     this.event.getObservable().subscribe((data) => {
       this.applyFilter(data);
     })
+
+    this.tabState = "places"; // places tab is default
+    this.updateTabDisplay();
   }
 
   ionViewWillEnter(){
     console.log(this.filters);
     this.getFilteredItineraryList(this.filters);
+  }
+
+  simpleSearch(simpSearch: string){
+    console.log("Simple Search input: " + simpSearch);
+    this.userService.simpleSearchList(simpSearch).subscribe(
+      data => {
+        console.log("DATA:", data);
+        var searchedList;
+        this.peopleItems = [];
+        this.placesItems = [];
+        this.titlesItems = [];
+
+        
+        // Assign people objects to array
+        searchedList = data[0];
+        for(var element in searchedList){
+          console.log("pushing ",searchedList[element].username);
+          this.peopleItems.push({
+            name: searchedList[element].username
+          });
+        }
+
+        // Assign titles objects to array
+        searchedList = data[1];
+        for(var element in searchedList){
+          this.titlesItems.push({
+            name: searchedList[element].title,
+            duration_magnitude: searchedList[element].duration_magnitude,
+            budget: searchedList[element].budget,
+            location_tag: searchedList[element].location_tag,
+            content: searchedList[element].description,
+            transportation_tag: searchedList[element].transportation_tag,
+            accommodation_tag: searchedList[element].accommodation_tag
+          });
+        }
+        
+        // Assign places objects to array
+        searchedList = data[2];
+        for(var element in searchedList){
+          this.placesItems.push({
+            name: searchedList[element].title,
+            duration_magnitude: searchedList[element].duration_magnitude,
+            budget: searchedList[element].budget,
+            location_tag: searchedList[element].location_tag,
+            content: searchedList[element].description,
+            transportation_tag: searchedList[element].transportation_tag,
+            accommodation_tag: searchedList[element].accommodation_tag
+          });
+        }
+        this.updateTabDisplay();
+      },
+      error => {
+        console.log("Error: " + error);
+      }
+    );
+    
+  }
+
+  
+  // Listens to segment (people,places,titles)
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev.detail.value);
+    this.tabState = ev.detail.value;
+
+    this.updateTabDisplay();
+  }
+
+
+  // Deals with showing the people/places/titles tabs
+  updateTabDisplay(){
+    if (this.tabState == "places") {
+      if (this.placesItems.length == 0){
+        this.showPlacesTabNoResults = true;
+        this.showPlacesTab = false;
+      } else {
+        this.showPlacesTab = true;
+        this.showPlacesTabNoResults = false;
+      }
+      this.showPeopleTab = false;
+      this.showPeopleTabNoResults = false;
+      this.showTitlesTab = false;
+      this.showTitlesTabNoResults = false;
+    } else if (this.tabState == "people") {
+      this.showPlacesTab = false;
+      this.showPlacesTabNoResults = false;
+      if (this.peopleItems.length == 0){
+        this.showPeopleTabNoResults = true;
+        this.showPeopleTab = false;
+      } else {
+        this.showPeopleTab = true;
+        this.showPeopleTabNoResults = false;
+      }
+      this.showTitlesTab = false;
+      this.showTitlesTabNoResults = false;
+    } else if (this.tabState == "titles") {
+      this.showPlacesTab = false;
+      this.showPlacesTabNoResults = false;
+      this.showPeopleTab = false;
+      this.showPeopleTabNoResults = false;
+      if (this.titlesItems.length == 0){
+        this.showTitlesTabNoResults = true;
+        this.showTitlesTab = false;
+      } else {
+        this.showTitlesTab = true;
+        this.showTitlesTabNoResults = false;
+      }
+    } else {
+      console.log("Error: tabState not defined");
+    }
   }
 
 
@@ -97,100 +217,8 @@ export class MainPagePage implements OnInit {
     console.log(data);
   }
 
-    //Display the list of users if there is an @ sign and if not display itinerary list
-    simpleSearch(simpSearch: string){
-      console.log("Simple Search input: " + simpSearch);
-      this.userService.simpleSearchList(simpSearch).subscribe(
-        data => {
-          console.log(data);
-          console.log(data[1]);
-          var searchedList;
-          this.items = [];
-
-          if(this.profileSearch){
-            searchedList = data[0];
-            for(var element in searchedList){
-              this.items.push({
-                name: searchedList[element].username
-              });
-            }
-          }
-          else if(this.titleSearch){
-            searchedList = data[1];
-            for(var element in searchedList){
-              this.items.push({
-                name: searchedList[element].title,
-                duration_magnitude: searchedList[element].duration_magnitude,
-                budget: searchedList[element].budget,
-                location_tag: searchedList[element].location_tag,
-                content: searchedList[element].description,
-                transportation_tag: searchedList[element].transportation_tag,
-                accommodation_tag: searchedList[element].accommodation_tag
-              });
-            }
-          }
-          else if(this.placesSearch){
-            searchedList = data[2];
-            for(var element in searchedList){
-              this.items.push({
-                name: searchedList[element].title,
-                duration_magnitude: searchedList[element].duration_magnitude,
-                budget: searchedList[element].budget,
-                location_tag: searchedList[element].location_tag,
-                content: searchedList[element].description,
-                transportation_tag: searchedList[element].transportation_tag,
-                accommodation_tag: searchedList[element].accommodation_tag
-              });
-            }
-          }
-        },
-        error => {
-          console.log("Error: " + error);
-        }
-      );
-    }
-
-    displaySearchOptions(event){
-      // var elements = document.getElementsByClassName("searchOpt");
-    }
-
-    clearSearch(event){
-      this.hideProfileList = true;
-      this.getFilteredItineraryList(this.filters);
-    }
-
-    displayProfileList(){
-
-      this.hideProfileList = false;
-      this.profileSearch = true;
-
-      this.hideTitleList = true;
-      this.titleSearch = false;
-
-      this.hidePlacesList = true;
-      this.placesSearch = false;
-    }
-
-    displayTitleList(){
-
-      this.hideTitleList = false;
-      this.titleSearch = true;
-
-      this.hideProfileList = true;
-      this.profileSearch = false;
-
-      this.hidePlacesList = true;
-      this.placesSearch = false;
-    }
-
-    displayPlacesList(){
-      this.hidePlacesList = false;
-      this.placesSearch = true;
-
-      this.hideTitleList = true;
-      this.titleSearch = false;
-
-      this.hideProfileList = true;
-      this.profileSearch = false;
-    }
+  clearSearch(){
+    console.log("clear search");
+    // TODO: Return everything in db
+  }
 }
