@@ -26,21 +26,21 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 :root {
-  --ion-color-ruckbrown: #b2a481;
-  --ion-color-ruckbrown-rgb: 178,164,129;
-  --ion-color-ruckbrown-contrast: #000000;
-  --ion-color-ruckbrown-contrast-rgb: 0,0,0;
-  --ion-color-ruckbrown-shade: #9d9072;
-  --ion-color-ruckbrown-tint: #baad8e;
+  --ion-color-rucksack: #94887c;
+  --ion-color-rucksack-rgb: 148,136,124;
+  --ion-color-rucksack-contrast: #000000;
+  --ion-color-rucksack-contrast-rgb: 0,0,0;
+  --ion-color-rucksack-shade: #82786d;
+  --ion-color-rucksack-tint: #9f9489;
 }
 
-.ion-color-ruckbrown {
-  --ion-color-base: var(--ion-color-ruckbrown);
-  --ion-color-base-rgb: var(--ion-color-ruckbrown-rgb);
-  --ion-color-contrast: var(--ion-color-ruckbrown-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-ruckbrown-contrast-rgb);
-  --ion-color-shade: var(--ion-color-ruckbrown-shade);
-  --ion-color-tint: var(--ion-color-ruckbrown-tint);
+.ion-color-rucksack {
+  --ion-color-base: var(--ion-color-rucksack);
+  --ion-color-base-rgb: var(--ion-color-rucksack-rgb);
+  --ion-color-contrast: var(--ion-color-rucksack-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-rucksack-contrast-rgb);
+  --ion-color-shade: var(--ion-color-rucksack-shade);
+  --ion-color-tint: var(--ion-color-rucksack-tint);
 }
 
 :root {
