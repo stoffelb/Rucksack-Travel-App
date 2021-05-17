@@ -31,7 +31,7 @@ export class CreatePagePage implements OnInit {
   }
 
   onSaveItinerary(){
-    this.userService.createNewItinerary(this.token,this.title,this.location,this.budget,this.duration,this.accommodation,this.transportation,this.description).subscribe(
+    this.userService.createNewItinerary(this.token,this.username,this.title,this.location,this.budget,this.duration,this.accommodation,this.transportation,this.description).subscribe(
       data => {
         this.router.navigate(['./tabs/home-page']);
       },

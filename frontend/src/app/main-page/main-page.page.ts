@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams, JsonpClientBackend } from '@angular/common/http';
 import { UserService } from '../user.services';
 import { ItineraryObject } from '../ItineraryObject';
 import {ApplyFilterEventService} from '../apply-filter-event.service'
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
+import { NavController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-main-page',
@@ -25,17 +26,22 @@ export class MainPagePage implements OnInit {
   items = [];
   filterOn: boolean;
   filters: {};
+  username: string;
+  navigationExtras: NavigationExtras;
 
   // People, places, titles tabs
-  private showPlacesTab = true;
-  private showPlacesTabNoResults = false;
-  private showPeopleTab = false;
-  private showPeopleTabNoResults = false;
-  private showTitlesTab = false;
-  private showTitlesTabNoResults = false;
-  private tabState;
+  public showPlacesTab = false;
+  public showPlacesTabNoResults = false;
+  public showPeopleTab = false;
+  public showPeopleTabNoResults = false;
+  public showTitlesTab = false;
+  public showTitlesTabNoResults = false;
+  public showGlobalFeed = true;
+  public showGlobalFeedNoResults = false;
+  public tabState;
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject, private event: ApplyFilterEventService) {
+
+  constructor(private http: HttpClient, private userService: UserService, private router: Router, private itineraryObject: ItineraryObject, private event: ApplyFilterEventService, public navCtrl: NavController) {
   }
 
   ngOnInit() {
@@ -54,13 +60,15 @@ export class MainPagePage implements OnInit {
       this.applyFilter(data);
     })
 
-    this.tabState = "places"; // places tab is default
+    this.tabState = "globalfeed"; // globalfeed tab is default
     this.updateTabDisplay();
   }
 
   ionViewWillEnter(){
     console.log(this.filters);
     this.getFilteredItineraryList(this.filters);
+    this.tabState = "globalfeed"; // globalfeed tab is default
+    this.updateTabDisplay();
   }
 
   simpleSearch(simpSearch: string){
@@ -73,7 +81,7 @@ export class MainPagePage implements OnInit {
         this.placesItems = [];
         this.titlesItems = [];
 
-        
+
         // Assign people objects to array
         searchedList = data[0];
         for(var element in searchedList){
@@ -96,7 +104,7 @@ export class MainPagePage implements OnInit {
             accommodation_tag: searchedList[element].accommodation_tag
           });
         }
-        
+
         // Assign places objects to array
         searchedList = data[2];
         for(var element in searchedList){
@@ -116,10 +124,10 @@ export class MainPagePage implements OnInit {
         console.log("Error: " + error);
       }
     );
-    
+
   }
 
-  
+
   // Listens to segment (people,places,titles)
   segmentChanged(ev: any) {
     console.log('Segment changed', ev.detail.value);
@@ -135,6 +143,8 @@ export class MainPagePage implements OnInit {
       if (this.placesItems.length == 0){
         this.showPlacesTabNoResults = true;
         this.showPlacesTab = false;
+        this.showGlobalFeed = false;
+        this.showGlobalFeedNoResults = false;
       } else {
         this.showPlacesTab = true;
         this.showPlacesTabNoResults = false;
@@ -146,6 +156,8 @@ export class MainPagePage implements OnInit {
     } else if (this.tabState == "people") {
       this.showPlacesTab = false;
       this.showPlacesTabNoResults = false;
+      this.showGlobalFeed = false;
+        this.showGlobalFeedNoResults = false;
       if (this.peopleItems.length == 0){
         this.showPeopleTabNoResults = true;
         this.showPeopleTab = false;
@@ -160,12 +172,22 @@ export class MainPagePage implements OnInit {
       this.showPlacesTabNoResults = false;
       this.showPeopleTab = false;
       this.showPeopleTabNoResults = false;
+      this.showGlobalFeed = false;
+        this.showGlobalFeedNoResults = false;
       if (this.titlesItems.length == 0){
         this.showTitlesTabNoResults = true;
         this.showTitlesTab = false;
       } else {
         this.showTitlesTab = true;
         this.showTitlesTabNoResults = false;
+      }
+    } else if(this.tabState == "globalfeed"){
+      if (this.items.length == 0){
+        this.showGlobalFeedNoResults = true;
+        this.showGlobalFeed = false;
+      } else {
+        this.showGlobalFeed = true;
+        this.showGlobalFeedNoResults = false;
       }
     } else {
       console.log("Error: tabState not defined");
@@ -180,6 +202,7 @@ export class MainPagePage implements OnInit {
         this.items = [];
         for(var element in data){
           this.items.push({
+            username: data[element].username,
             name: data[element].title,
             duration_magnitude: data[element].duration_magnitude,
             budget: data[element].budget,
@@ -219,6 +242,12 @@ export class MainPagePage implements OnInit {
 
   clearSearch(){
     console.log("clear search");
+    this.getFilteredItineraryList(this.filters);
     // TODO: Return everything in db
+  }
+
+  goToOtherProfile(name){
+    this.router.navigate(['other-profile'], {queryParams: {"username": name}});
+
   }
 }

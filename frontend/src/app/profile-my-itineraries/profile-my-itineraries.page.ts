@@ -20,6 +20,14 @@ export class ProfileMyItinerariesPage implements OnInit {
   }
 
   ngOnInit() {
+    this.getMyItineraryList();
+  }
+
+  ionViewWillEnter(){
+    this.getMyItineraryList();
+  }
+
+  getMyItineraryList(){
     this.userService.getUserProfile(this.token,this.username).subscribe(
       data => {
         //Set the variables for userInfo and MyItineraries from the returned call
@@ -46,6 +54,17 @@ export class ProfileMyItinerariesPage implements OnInit {
         console.log('Error: ' + error);
       }
     );
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+      this.getMyItineraryList();
+      console.log(this.items)
+    }, 2000);
   }
 
   backToProfile() {

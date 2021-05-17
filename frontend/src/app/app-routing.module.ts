@@ -30,6 +30,16 @@ const routes: Routes = [
     path: 'profile-my-itineraries',
     loadChildren: () => import('./profile-my-itineraries/profile-my-itineraries.module').then( m => m.ProfileMyItinerariesPageModule)
   },
+  {
+    path: 'other-profile',
+    loadChildren: () => import('./other-profile/other-profile.module').then( m => m.OtherProfilePageModule)
+  },
+  {
+    path: 'other-itineraries',
+    loadChildren: () => import('./other-itineraries/other-itineraries.module').then( m => m.OtherItinerariesPageModule)
+  },
+
+
 ];
 
 @NgModule({

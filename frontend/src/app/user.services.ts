@@ -28,12 +28,13 @@ export class UserService {
     return this.http.get('http://localhost:8000/api/' + username, {headers: headers});
   }
 
-  createNewItinerary(token,title,location,budget,duration,accommodation,transportation,description): Observable<any>{
+  createNewItinerary(token,username,title,location,budget,duration,accommodation,transportation,description): Observable<any>{
     let headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Token ' + token,
     });
     let itinerary = {
+      'username': username,
       'title': title,
       'budget': budget,
       'duration_magnitude': duration,
