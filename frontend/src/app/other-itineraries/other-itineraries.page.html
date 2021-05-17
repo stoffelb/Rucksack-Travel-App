@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-button color="secondary" (click)="backToProfile()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{username}} Itineraries</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" routerLink="/tabs/home-page">
+      <ion-refresher-content
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Pull to refresh"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+  <div *ngIf="showOtherItineraries" id="otherItinerariesList" class="ion-text-center">
+    <ion-virtual-scroll [items]="items" approxItemHeight="320px">
+      <ion-card *virtualItem="let item; let itemBounds = bounds;">
+      <ion-card-header>
+        <ion-card-title>{{ item.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="it-budget-duration-div">
+          <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
+          <label class="ion-float-right ">Duration: {{ item.duration_magnitude }}</label>
+        </div>
+        <div class="it-chips-div ion-float-left">
+          <ion-chip>{{ item.location_tag }}</ion-chip>
+          <ion-chip>{{ item.accommodation_tag }}</ion-chip>
+          <ion-chip>{{ item.transportation_tag }}</ion-chip>
+        </div>
+        <div class="it-description-div ion-float-left">
+          {{ item.content }}
+        </div>
+      </ion-card-content>
+      </ion-card>
+    </ion-virtual-scroll>
+  </div>
+</ion-content>

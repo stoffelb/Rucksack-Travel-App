@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> {{username}} Profile</ion-title>
+      <ion-buttons slot="start">
+        <ion-button color="secondary" (click)="backToMainFeed()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid >
+    <ion-row class="ion-justify-content-center">
+        <ion-avatar size="extra-large">
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-avatar>
+    </ion-row>
+    <ion-row class="ion-justify-content-center profile-user-info">
+      <ion-label>@{{username}}</ion-label>
+    </ion-row>
+    <ion-row class="ion-justify-content-center profile-user-info">
+        <ion-label style="font-weight: bold;">{{name}}</ion-label>
+    </ion-row>
+    <ion-row class="ion-justify-content-center profile-user-info">
+        <ion-label>{{email}}</ion-label>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list class="ion-margin-top">
+    <ion-item (click)="goToOtherItineraries()">
+      <ion-label>{{username}} Itineraries</ion-label>
+      <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
