@@ -5,7 +5,7 @@
         <ion-icon name="chevron-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{username}} Itineraries</ion-title>
+    <ion-title>@{{username}}'s Itineraries</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,10 +23,10 @@
     <ion-virtual-scroll [items]="items" approxItemHeight="320px">
       <ion-card *virtualItem="let item; let itemBounds = bounds;">
       <ion-card-header>
-        <ion-card-title>{{ item.name }}</ion-card-title>
+        <ion-card-title class="ion-float-left">{{ item.name }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <div class="it-budget-duration-div">
+        <div class="it-budget-duration-div ion-float-left">
           <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
           <label class="ion-float-right ">Duration: {{ item.duration_magnitude }}</label>
         </div>

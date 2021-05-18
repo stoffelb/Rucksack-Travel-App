@@ -95,6 +95,7 @@ export class MainPagePage implements OnInit {
         searchedList = data[1];
         for(var element in searchedList){
           this.titlesItems.push({
+            username: searchedList[element].username,
             name: searchedList[element].title,
             duration_magnitude: searchedList[element].duration_magnitude,
             budget: searchedList[element].budget,
@@ -109,6 +110,7 @@ export class MainPagePage implements OnInit {
         searchedList = data[2];
         for(var element in searchedList){
           this.placesItems.push({
+            username: searchedList[element].username,
             name: searchedList[element].title,
             duration_magnitude: searchedList[element].duration_magnitude,
             budget: searchedList[element].budget,
@@ -143,8 +145,6 @@ export class MainPagePage implements OnInit {
       if (this.placesItems.length == 0){
         this.showPlacesTabNoResults = true;
         this.showPlacesTab = false;
-        this.showGlobalFeed = false;
-        this.showGlobalFeedNoResults = false;
       } else {
         this.showPlacesTab = true;
         this.showPlacesTabNoResults = false;
@@ -153,11 +153,13 @@ export class MainPagePage implements OnInit {
       this.showPeopleTabNoResults = false;
       this.showTitlesTab = false;
       this.showTitlesTabNoResults = false;
+      this.showGlobalFeed = false;
+        this.showGlobalFeedNoResults = false;
     } else if (this.tabState == "people") {
       this.showPlacesTab = false;
       this.showPlacesTabNoResults = false;
       this.showGlobalFeed = false;
-        this.showGlobalFeedNoResults = false;
+      this.showGlobalFeedNoResults = false;
       if (this.peopleItems.length == 0){
         this.showPeopleTabNoResults = true;
         this.showPeopleTab = false;
@@ -173,7 +175,7 @@ export class MainPagePage implements OnInit {
       this.showPeopleTab = false;
       this.showPeopleTabNoResults = false;
       this.showGlobalFeed = false;
-        this.showGlobalFeedNoResults = false;
+      this.showGlobalFeedNoResults = false;
       if (this.titlesItems.length == 0){
         this.showTitlesTabNoResults = true;
         this.showTitlesTab = false;
@@ -182,6 +184,12 @@ export class MainPagePage implements OnInit {
         this.showTitlesTabNoResults = false;
       }
     } else if(this.tabState == "globalfeed"){
+      this.showPlacesTab = false;
+      this.showPlacesTabNoResults = false;
+      this.showPeopleTab = false;
+      this.showPeopleTabNoResults = false;
+      this.showTitlesTab = false;
+      this.showTitlesTabNoResults = false;
       if (this.items.length == 0){
         this.showGlobalFeedNoResults = true;
         this.showGlobalFeed = false;

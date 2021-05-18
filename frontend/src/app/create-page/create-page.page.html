@@ -6,43 +6,39 @@
     </ion-toolbar>
   </ion-header>
 
-    <ion-item>
-      <ion-label>Title</ion-label>
-      <ion-input [(ngModel)]="title" required="true" clearInput placeholder="My Trip"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Destination</ion-label>
-      <!-- <ion-input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" [(ngModel)]="location" required="true" clearInput placeholder="Milwaukee"></ion-input> -->
-      <br>
-      <br>
-      <br>
-      <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Budget</ion-label>
-      <ion-input [(ngModel)]="budget" required="true" clearInput type="number" clearInput value="" placeholder="$100">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Duration</ion-label>
-      <ion-input [(ngModel)]="duration" required="true" clearInput type="number" clearInput value="" placeholder="10 (days)"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Duration Unit</ion-label>
-      <ion-select [(ngModel)]="duration_unit" placeholder="Select One">
-        <ion-select-option value="Days">Days</ion-select-option>
-        <ion-select-option value="Weeks">Weeks</ion-select-option>
-        <ion-select-option value="Months">Months</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <ion-item>
+    <ion-label>Title: </ion-label>
+    <ion-input [(ngModel)]="title" required="true" clearInput placeholder="My Trip"></ion-input>
+  </ion-item>
 
   <ion-item>
+    <ion-label id="destination-label">Destination: </ion-label>
+    <!-- <ion-input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" [(ngModel)]="location" required="true" clearInput placeholder="Milwaukee"></ion-input> -->
+    <input id="destination-input" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+  </ion-item>
 
-    <ion-label>Transport Method</ion-label>
+  <ion-item>
+    <ion-label>Budget: </ion-label>
+    <ion-input [(ngModel)]="budget" required="true" clearInput type="number" clearInput value="" placeholder="$100">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Duration: </ion-label>
+    <ion-input [(ngModel)]="duration" required="true" clearInput type="number" clearInput value="" placeholder="10 (days)"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Duration Unit: </ion-label>
+    <ion-select [(ngModel)]="duration_unit" placeholder="Select One">
+      <ion-select-option value="Days">Days</ion-select-option>
+      <ion-select-option value="Weeks">Weeks</ion-select-option>
+      <ion-select-option value="Months">Months</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Transport Method: </ion-label>
     <ion-select [(ngModel)]="transportation" placeholder="Select One">
       <ion-select-option value="Car">Car</ion-select-option>
       <ion-select-option value="Train">Train</ion-select-option>
@@ -51,12 +47,10 @@
       <ion-select-option value="Bicycle">Bicycle</ion-select-option>
       <ion-select-option value="Other">Other</ion-select-option>
     </ion-select>
-
   </ion-item>
 
   <ion-item>
-
-    <ion-label>Stay Method</ion-label>
+    <ion-label>Stay Method: </ion-label>
     <ion-select [(ngModel)]="accommodation" placeholder="Select One">
       <ion-select-option value="Condo">Condo</ion-select-option>
       <ion-select-option value="Hotel">Hotel</ion-select-option>
@@ -65,21 +59,16 @@
       <ion-select-option value="None">No Overnight</ion-select-option>
       <ion-select-option value="Other">Other</ion-select-option>
     </ion-select>
+  </ion-item><br>
 
-  </ion-item>
-
-    <ion-card>
-
-      <ion-card-header>
-        <ion-card-title>Description</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-          <ion-textarea [(ngModel)]="description" spellcheck="true" inputmode="text" color="medium"></ion-textarea>
-      </ion-card-content>
-
-    </ion-card>
-
-    <ion-button color="earthygreen" expand="block" (click)="onSaveItinerary()">Save Itinerary</ion-button>
+  <item-item>
+    <ion-label id="description-label">Description: </ion-label><br>
+    <div id="description-item">
+      <textarea [(ngModel)]="description" spellcheck="true" inputmode="text" color="white">
+      </textarea>
+    </div>
+  </item-item>
+    
+  <ion-button id="save-button" color="earthygreen" expand="block" (click)="onSaveItinerary()">Save Itinerary</ion-button>
 
 </ion-content>

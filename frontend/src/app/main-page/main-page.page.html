@@ -26,7 +26,7 @@
 
   <ion-segment value="globalfeed" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="globalfeed">
-      <ion-label>Global Feed</ion-label>
+      <ion-label>Feed</ion-label>
     </ion-segment-button>
     <ion-segment-button value="places">
       <ion-label>Places</ion-label>
@@ -42,26 +42,24 @@
 
   <div *ngIf="showGlobalFeed" id="gloabalfeed-tab" class="ion-text-center">
     <ion-virtual-scroll [items]="items" approxItemHeight="320px">
-      <ion-card *virtualItem="let item; let itemBounds = bounds;" >
+      <ion-card *virtualItem="let item; let itemBounds = bounds;">
       <ion-card-header>
-        <ion-card-title>{{ item.name }}</ion-card-title>
-        <ion-card-subtitle button (click)="goToOtherProfile(item.username)">Creator: {{item.username}}</ion-card-subtitle>
+        <ion-card-title class="ion-float-left ">{{ item.name }}</ion-card-title><br><br>
+        <ion-card-subtitle class="ion-float-left" button (click)="goToOtherProfile(item.username)">@{{item.username}}</ion-card-subtitle><br>
       </ion-card-header>
       <ion-card-content>
         <div class="it-budget-duration-div">
           <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
           <label class="ion-float-right ">Duration: {{ item.duration_magnitude }} {{item.duration_unit}}</label>
-        </div>
+        </div> <br>
         <div class="it-chips-div ion-float-left">
           <ion-chip>{{ item.location_tag }}</ion-chip>
           <ion-chip>{{ item.accommodation_tag }}</ion-chip>
           <ion-chip>{{ item.transportation_tag }}</ion-chip>
         </div>
-        <div class="it-description-div ion-float-left">
-          <ion-item text-wrap style="font-size: 1em">
-            {{ item.content }}
-          </ion-item>
-        </div>
+        <ion-label class="it-description-div ion-float-left" style="font-size: 1em">
+          {{ item.content }}
+        </ion-label>
       </ion-card-content>
       </ion-card>
     </ion-virtual-scroll>
@@ -73,26 +71,25 @@
 
   <div *ngIf="showPlacesTab" id="places-tab" class="ion-text-center">
     <ion-virtual-scroll [items]="placesItems" approxItemHeight="320px">
-      <ion-card *virtualItem="let item; let itemBounds = bounds;" >
-      <ion-card-header>
-        <ion-card-title>{{ item.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div class="it-budget-duration-div">
-          <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
-          <label class="ion-float-right ">Duration: {{ item.duration_magnitude }} {{item.duration_unit}}</label>
-        </div>
-        <div class="it-chips-div ion-float-left">
-          <ion-chip>{{ item.location_tag }}</ion-chip>
-          <ion-chip>{{ item.accommodation_tag }}</ion-chip>
-          <ion-chip>{{ item.transportation_tag }}</ion-chip>
-        </div>
-        <div class="it-description-div ion-float-left">
-          <ion-item text-wrap style="font-size: 1em">
+      <ion-card *virtualItem="let item; let itemBounds = bounds;">
+        <ion-card-header>
+          <ion-card-title class="ion-float-left ">{{ item.name }}</ion-card-title><br><br>
+          <ion-card-subtitle class="ion-float-left" button (click)="goToOtherProfile(item.username)">@{{item.username}}</ion-card-subtitle><br>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="it-budget-duration-div">
+            <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
+            <label class="ion-float-right ">Duration: {{ item.duration_magnitude }} {{item.duration_unit}}</label>
+          </div> <br>
+          <div class="it-chips-div ion-float-left">
+            <ion-chip>{{ item.location_tag }}</ion-chip>
+            <ion-chip>{{ item.accommodation_tag }}</ion-chip>
+            <ion-chip>{{ item.transportation_tag }}</ion-chip>
+          </div>
+          <ion-label class="it-description-div ion-float-left" style="font-size: 1em">
             {{ item.content }}
-          </ion-item>
-        </div>
-      </ion-card-content>
+          </ion-label>
+        </ion-card-content>
       </ion-card>
     </ion-virtual-scroll>
   </div>
@@ -103,9 +100,9 @@
 
   <div *ngIf="showPeopleTab" id="people-tab" class="ion-text-center">
     <ion-virtual-scroll [items]="peopleItems" approxItemHeight="320px">
-      <ion-card *virtualItem="let item; let itemBounds = bounds;" >
+      <ion-card *virtualItem="let item; let itemBounds = bounds;">
         <ion-card-header>
-          <ion-card-title button (click)="goToOtherProfile(item.name)">{{ item.name }}</ion-card-title>
+          <ion-card-title button (click)="goToOtherProfile(item.name)">@{{ item.name }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
         </ion-card-content>
@@ -118,26 +115,25 @@
 
   <div *ngIf="showTitlesTab" id="titles-tab" class="ion-text-center">
     <ion-virtual-scroll [items]="titlesItems" approxItemHeight="320px">
-      <ion-card *virtualItem="let item; let itemBounds = bounds;" >
-      <ion-card-header>
-        <ion-card-title>{{ item.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div class="it-budget-duration-div">
-          <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
-          <label class="ion-float-right ">Duration: {{ item.duration_magnitude }} {{item.duration_unit}}</label>
-        </div>
-        <div class="it-chips-div ion-float-left">
-          <ion-chip>{{ item.location_tag }}</ion-chip>
-          <ion-chip>{{ item.accommodation_tag }}</ion-chip>
-          <ion-chip>{{ item.transportation_tag }}</ion-chip>
-        </div>
-        <div class="it-description-div ion-float-left">
-          <ion-item text-wrap style="font-size: 1em">
+      <ion-card *virtualItem="let item; let itemBounds = bounds;">
+        <ion-card-header>
+          <ion-card-title class="ion-float-left ">{{ item.name }}</ion-card-title><br><br>
+          <ion-card-subtitle class="ion-float-left" button (click)="goToOtherProfile(item.username)">@{{item.username}}</ion-card-subtitle><br>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="it-budget-duration-div">
+            <label class="ion-float-left ">Budget: ${{ item.budget }} </label>
+            <label class="ion-float-right ">Duration: {{ item.duration_magnitude }} {{item.duration_unit}}</label>
+          </div> <br>
+          <div class="it-chips-div ion-float-left">
+            <ion-chip>{{ item.location_tag }}</ion-chip>
+            <ion-chip>{{ item.accommodation_tag }}</ion-chip>
+            <ion-chip>{{ item.transportation_tag }}</ion-chip>
+          </div>
+          <ion-label class="it-description-div ion-float-left" style="font-size: 1em">
             {{ item.content }}
-          </ion-item>
-        </div>
-      </ion-card-content>
+          </ion-label>
+        </ion-card-content>
       </ion-card>
     </ion-virtual-scroll>
   </div>

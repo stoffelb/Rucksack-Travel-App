@@ -1,0 +1,19 @@
+ion-avatar {
+    margin: 20px 10px;
+    width:100% !important;  
+    height : 100% !important;  
+    max-width: 100px !important;  //any size
+    max-height: 100px !important; //any size 
+}
+
+#username {
+    font-size: 20px;
+}
+
+ion-content {
+    background-color: var(--ion-color-primary-tint);;
+}
+
+ion-item {
+    background-color: var(--ion-color-primary-tint) !important;
+}

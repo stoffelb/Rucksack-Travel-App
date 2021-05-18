@@ -1,0 +1,36 @@
+#description-item {
+    background-color: var(--ion-color-primary-tint);
+    text-align: left;
+    font-size: 1em;
+    padding: 5px 10px;
+    margin: 20px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+#description-item textarea {
+    background-color: var(--ion-color-primary-tint);
+    height: 100%;
+    width: 100%;
+    border: none;
+}
+
+#description-label {
+    margin-top: 30px;
+    padding: 15px 20px;
+    font-size: 1em;
+}
+
+#destination-label {
+    width: 30%;
+}
+
+#destination-input {
+    background-color: transparent;
+    border: none;
+    width: 70%;
+}
+
+#save-button {
+    margin: 0px 20px;
+}

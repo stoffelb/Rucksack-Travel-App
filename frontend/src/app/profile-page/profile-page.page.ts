@@ -20,7 +20,8 @@ export class ProfilePagePage implements OnInit {
 
   constructor(private http: HttpClient, private router: Router, private userService: UserService) {
     console.log("Username: ", localStorage.getItem('username'));
-    var url: string = 'http://localhost:8000/api/' + localStorage.getItem('username');
+    this.username = localStorage.getItem('username');
+    var url: string = 'http://localhost:8000/api/' + this.username;
   }
 
   ionViewWillEnter(){
@@ -31,13 +32,10 @@ export class ProfilePagePage implements OnInit {
     console.log(localStorage.getItem('sessionToken'));
     this.userService.getUserProfile(this.token,this.username).subscribe(
       data => {
+        console.log("USER DATA:", data);
         //Set the variables for userInfo and MyItineraries from the returned call
         var userInfo = data[0];
         var myItineraries = data[1];
-
-        this.name = userInfo.name;
-        this.email = userInfo.email;
-
         console.log('Data: ' + data);
       },
       error => {

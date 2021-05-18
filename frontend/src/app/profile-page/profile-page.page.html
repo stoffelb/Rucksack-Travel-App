@@ -19,12 +19,6 @@
     <ion-row class="ion-justify-content-center profile-user-info">
       <ion-label>@{{username}}</ion-label>
     </ion-row>
-    <ion-row class="ion-justify-content-center profile-user-info">
-        <ion-label style="font-weight: bold;">{{name}}</ion-label>
-    </ion-row>
-    <ion-row class="ion-justify-content-center profile-user-info">
-        <ion-label>{{email}}</ion-label>
-    </ion-row>
   </ion-grid>
 
   <ion-list class="ion-margin-top">
@@ -32,14 +26,14 @@
       <ion-label>My Itineraries</ion-label>
       <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
     </ion-item>
-    <ion-item (click)="goToViewSaved()">
+    <!-- <ion-item (click)="goToViewSaved()">
       <ion-label>View Saved Itineraries</ion-label>
       <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
-    </ion-item>
-    <ion-item (click)="goToEditProfile()">
+    </ion-item> -->
+    <!-- <ion-item (click)="goToEditProfile()">
       <ion-label>Edit Account Info</ion-label>
       <ion-icon size="medium" name="chevron-forward-outline"></ion-icon>
-    </ion-item>
+    </ion-item> -->
   </ion-list>
 
   <ion-button expand="full" color="darkred" id="logout-button" (click)="logoutClick()">Logout</ion-button>
