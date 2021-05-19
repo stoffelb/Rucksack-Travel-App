@@ -1,4 +1,5 @@
 .it-budget-duration-div {
+    width: 100%;
     margin: 8px 0px;
     font-size: 1em;
     font-weight: bold;
@@ -25,4 +26,19 @@ ion-card-subtitle {
 ion-card {
     background-color: var(--ion-color-primary-tint);
     color: black;
+}
+
+ion-segment {
+    // font-size: 10px !important;
+    width: 100% !important;
+}
+
+ion-card-title {
+    text-align: left;
+    width: 100%;
+}
+
+ion-card-subtitle {
+    text-align: left;
+    width: 100%;
 }
