@@ -36,9 +36,14 @@ ion-segment {
 ion-card-title {
     text-align: left;
     width: 100%;
+    font-size: 25px;
 }
 
 ion-card-subtitle {
     text-align: left;
     width: 100%;
+}
+
+ion-segment-button ion-label {
+    font-size: 15px;
 }
