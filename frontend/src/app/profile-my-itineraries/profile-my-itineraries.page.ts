@@ -30,6 +30,7 @@ export class ProfileMyItinerariesPage implements OnInit {
   getMyItineraryList(){
     this.userService.getUserProfile(this.token,this.username).subscribe(
       data => {
+        this.items = [];
         //Set the variables for userInfo and MyItineraries from the returned call
         var userInfo = data[0];
         var myItineraries = data[1];
